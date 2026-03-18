@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-scheme="daylight">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,13 +47,201 @@
         }
     </script>
     <style>
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .section-anchor { scroll-margin-top: 100px; }
+
+        /* ═══ SCHEME TOGGLE BUTTONS ═══ */
+        .scheme-btn {
+            width: 28px; height: 28px;
+            border: 2px solid #000;
+            cursor: pointer;
+            transition: all 0.1s;
+            position: relative;
         }
-        .section-anchor {
-            scroll-margin-top: 100px;
+        .scheme-btn::after {
+            content: '';
+            position: absolute; inset: 0;
+            border: 2px solid transparent;
+            transition: border-color 0.1s;
         }
+        .scheme-btn.active::after { border-color: #FCD228; }
+        .scheme-btn:hover { transform: scale(1.1); }
+
+        /* ═══ DAYLIGHT SCHEME ═══ */
+        html[data-scheme="daylight"] body {
+            background-color: #FCD228;
+            color: #000;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        html[data-scheme="daylight"] nav > div {
+            background: #FFF !important;
+            border-color: #000 !important;
+            box-shadow: 4px 4px 0px 0px #000 !important;
+            color: #000;
+        }
+        html[data-scheme="daylight"] nav a { color: #000; }
+        html[data-scheme="daylight"] nav .text-xl { color: #000; }
+        html[data-scheme="daylight"] .scheme-btn { border-color: #000; }
+
+        html[data-scheme="daylight"] h1 { color: #000; }
+        html[data-scheme="daylight"] .text-stroke {
+            -webkit-text-stroke-color: #000;
+        }
+        html[data-scheme="daylight"] main > section:first-child > p {
+            border-color: #000 !important;
+            background: rgba(255,255,255,0.5) !important;
+            color: #000;
+        }
+
+        html[data-scheme="daylight"] .brutal-section-title { color: #000; }
+
+        html[data-scheme="daylight"] main .bg-white {
+            background-color: #FFF !important;
+            color: #000;
+        }
+        html[data-scheme="daylight"] main .bg-white .text-gray-500 { color: #555 !important; }
+        html[data-scheme="daylight"] main .bg-white .text-gray-600 { color: #555 !important; }
+        html[data-scheme="daylight"] main .bg-white .border-black { border-color: #000 !important; }
+
+        html[data-scheme="daylight"] main .border-3.border-black:not(.bg-black) {
+            border-color: #000 !important;
+        }
+
+        html[data-scheme="daylight"] .border-y-4 { border-color: #FFF !important; }
+
+        html[data-scheme="daylight"] footer { border-color: #FCD228 !important; }
+
+        html[data-scheme="daylight"] ::-webkit-scrollbar-track { background: #FCD228; }
+        html[data-scheme="daylight"] ::-webkit-scrollbar-thumb { background: #000; border-color: #FCD228; }
+
+        html[data-scheme="daylight"] .brutal-btn { color: #000; }
+        html[data-scheme="daylight"] .brutal-tag-filter {
+            background: #FFF;
+            color: #000;
+            border-color: #000;
+        }
+        html[data-scheme="daylight"] .brutal-tag-filter:hover,
+        html[data-scheme="daylight"] .brutal-tag-filter.active {
+            background: #000;
+            color: #FCD228;
+        }
+        html[data-scheme="daylight"] .brutal-input { color: #000; }
+        html[data-scheme="daylight"] .brutal-search { color: #000; }
+        html[data-scheme="daylight"] .brutal-select { color: #000; }
+
+        /* ═══ DARK SCHEME ═══ */
+        html[data-scheme="dark"] {
+            --js-color-brand-white: #111111;
+            --js-border-color: #FCD228;
+            --js-shadow-brutal: 4px 4px 0px 0px #FCD228;
+            --js-shadow-brutal-lg: 8px 8px 0px 0px #FCD228;
+            --js-shadow-brutal-hover: 2px 2px 0px 0px #FCD228;
+            --js-shadow-brutal-card: 6px 6px 0px 0px #FCD228;
+            --js-shadow-brutal-card-hover: 4px 4px 0px 0px #FCD228;
+            --js-shadow-brutal-white: 4px 4px 0px 0px #FCD228;
+        }
+        html[data-scheme="dark"] body {
+            background-color: #000;
+            color: #FCD228;
+            background-image:
+                linear-gradient(rgba(252,210,40,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(252,210,40,0.06) 1px, transparent 1px);
+        }
+        html[data-scheme="dark"] nav > div {
+            background: #111 !important;
+            border-color: #FCD228 !important;
+            box-shadow: 4px 4px 0px 0px #FCD228 !important;
+            color: #FCD228;
+        }
+        html[data-scheme="dark"] nav a { color: #FCD228; }
+        html[data-scheme="dark"] nav .text-xl { color: #FCD228; }
+        html[data-scheme="dark"] .scheme-btn { border-color: #FCD228; }
+
+        html[data-scheme="dark"] h1 { color: #FCD228; }
+        html[data-scheme="dark"] .text-stroke {
+            -webkit-text-stroke-color: #FCD228;
+        }
+        html[data-scheme="dark"] main > section:first-child > p {
+            border-color: #FCD228 !important;
+            background: rgba(17,17,17,0.7) !important;
+            color: #ccc;
+        }
+        html[data-scheme="dark"] main > section:first-child > div:first-child {
+            box-shadow: 4px 4px 0px 0px #FCD228 !important;
+        }
+
+        html[data-scheme="dark"] .brutal-section-title { color: #FCD228; }
+
+        html[data-scheme="dark"] main .bg-white {
+            background-color: #111 !important;
+            color: #FCD228;
+        }
+        html[data-scheme="dark"] main .bg-white .text-gray-500,
+        html[data-scheme="dark"] main .bg-white .text-gray-600 { color: #777 !important; }
+        html[data-scheme="dark"] main .bg-white .font-mono.text-xs.text-gray-500 { color: #666 !important; }
+        html[data-scheme="dark"] main .bg-white .border-black { border-color: #FCD228 !important; }
+        html[data-scheme="dark"] main .bg-white .border-b-4 { border-color: #FCD228 !important; }
+        html[data-scheme="dark"] main .bg-white .border-b-2 { border-color: #FCD228 !important; }
+
+        html[data-scheme="dark"] main .bg-red-50 {
+            background-color: rgba(220,50,50,0.15) !important;
+        }
+
+        html[data-scheme="dark"] .brutal-card.bg-brand-yellow {
+            background-color: #1a1a1a !important;
+        }
+
+        html[data-scheme="dark"] main .border-3.border-black:not(.bg-black) {
+            border-color: #FCD228 !important;
+        }
+
+        html[data-scheme="dark"] .border-y-4 { border-color: #FCD228 !important; }
+
+        html[data-scheme="dark"] footer { border-color: #FCD228 !important; }
+
+        html[data-scheme="dark"] ::-webkit-scrollbar-track { background: #000; }
+        html[data-scheme="dark"] ::-webkit-scrollbar-thumb { background: #FCD228; border-color: #000; }
+
+        html[data-scheme="dark"] .brutal-btn {
+            color: #FCD228;
+        }
+        html[data-scheme="dark"] .brutal-tag-filter {
+            background: #111;
+            color: #FCD228;
+            border-color: #FCD228;
+        }
+        html[data-scheme="dark"] .brutal-tag-filter:hover,
+        html[data-scheme="dark"] .brutal-tag-filter.active {
+            background: #FCD228;
+            color: #000;
+        }
+        html[data-scheme="dark"] .brutal-input {
+            color: #FCD228;
+        }
+        html[data-scheme="dark"] .brutal-search {
+            color: #FCD228;
+        }
+        html[data-scheme="dark"] .brutal-select {
+            color: #FCD228;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23FCD228'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+        }
+
+        /* ═══ MINIMAL SCHEME ═══ */
+        html[data-scheme="minimal"] {
+            --js-grid-line-color: rgba(0, 0, 0, 0.03);
+        }
+        html[data-scheme="minimal"] body {
+            background-color: #FFF;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+        html[data-scheme="minimal"] ::-webkit-scrollbar-track { background: #fff; }
+        html[data-scheme="minimal"] ::-webkit-scrollbar-thumb { background: #000; border-color: #fff; }
+        html[data-scheme="minimal"] .selection\:bg-black::selection { background: #FCD228; color: #000; }
     </style>
 </head>
 <body class="min-h-screen font-sans selection:bg-black selection:text-brand-yellow overflow-x-hidden">
@@ -82,8 +270,16 @@
                 <a href="#shadows" class="hover:underline decoration-2 underline-offset-4">SHADOWS</a>
                 <a href="#components" class="hover:underline decoration-2 underline-offset-4">COMPONENTS</a>
                 <a href="#logo" class="hover:underline decoration-2 underline-offset-4">LOGO</a>
+                <a href="posters.html" class="bg-black text-[#FCD228] px-3 py-1 border-2 border-black font-bold hover:bg-[#FCD228] hover:text-black transition-colors">POSTERS</a>
             </div>
-            <button id="lang-toggle" class="brutal-btn px-4 py-2 text-xs font-mono" onclick="toggleLang()">EN / 中</button>
+            <div class="flex items-center gap-3">
+                <div class="flex gap-1" title="Color Scheme">
+                    <button class="scheme-btn active" data-scheme="daylight" onclick="setScheme('daylight')" style="background:#FCD228" aria-label="Daylight"></button>
+                    <button class="scheme-btn" data-scheme="dark" onclick="setScheme('dark')" style="background:#000" aria-label="Dark"></button>
+                    <button class="scheme-btn" data-scheme="minimal" onclick="setScheme('minimal')" style="background:#FFF" aria-label="Minimal"></button>
+                </div>
+                <button id="lang-toggle" class="brutal-btn px-4 py-2 text-xs font-mono" onclick="toggleLang()">EN / 中</button>
+            </div>
         </div>
     </nav>
 
@@ -591,6 +787,7 @@
                 transparent: true,
                 opacity: 0.15
             });
+            threeMaterial = material;
 
             const mesh1 = new THREE.Mesh(new THREE.IcosahedronGeometry(8, 0), material);
             mesh1.position.x = -15;
@@ -605,6 +802,7 @@
             gridHelper.position.z = -10;
             gridHelper.material.opacity = 0.1;
             gridHelper.material.transparent = true;
+            threeGridMaterial = gridHelper.material;
             scene.add(gridHelper);
 
             let mouseX = 0, mouseY = 0;
@@ -668,17 +866,29 @@
         initMiniThreeJS();
     </script>
 
-    <!-- Language Toggle -->
+    <!-- Language Toggle & Scheme Toggle -->
     <script>
         let currentLang = 'zh';
 
         function toggleLang() {
             currentLang = currentLang === 'zh' ? 'en' : 'zh';
             const attr = currentLang === 'zh' ? 'data-zh' : 'data-en';
-
             document.querySelectorAll('[data-zh][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(attr);
             });
+        }
+
+        let threeMaterial, threeGridMaterial;
+
+        function setScheme(scheme) {
+            document.documentElement.setAttribute('data-scheme', scheme);
+            document.querySelectorAll('.scheme-btn').forEach(b =>
+                b.classList.toggle('active', b.dataset.scheme === scheme)
+            );
+
+            const wireColor = scheme === 'dark' ? 0xFCD228 : 0x000000;
+            if (threeMaterial) threeMaterial.color.setHex(wireColor);
+            if (threeGridMaterial) threeGridMaterial.color.setHex(wireColor);
         }
     </script>
 

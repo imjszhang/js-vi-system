@@ -14,8 +14,8 @@ body {
     background-color: var(--js-color-brand-yellow);
     color: var(--js-color-brand-black);
     background-image:
-        linear-gradient(var(--js-color-grid-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--js-color-grid-line) 1px, transparent 1px);
+        linear-gradient(var(--js-grid-line-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--js-grid-line-color) 1px, transparent 1px);
     background-size: var(--js-grid-size) var(--js-grid-size);
 }
 
