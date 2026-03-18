@@ -1,0 +1,11 @@
+{
+  "name": "js-vi-system",
+  "version": "1.1.0",
+  "description": "OpenClaw plugin for JS VI System — 品牌视觉识别系统",
+  "type": "module",
+  "main": "index.mjs",
+  "license": "MIT",
+  "openclaw": {
+    "extensions": ["./index.mjs"]
+  }
+}

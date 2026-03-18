@@ -1,0 +1,67 @@
+{
+  "id": "js-vi-system",
+  "name": "JS VI System",
+  "description": "品牌视觉识别系统 — 提供 Neo-Brutalism 风格的海报生成、设计 Token 查询、模板管理能力。支持多种配色方案、尺寸和输出格式（HTML/PNG/JPEG/PDF/SVG/GIF）。",
+  "version": "1.1.0",
+  "skills": ["./skills"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "browserPath": {
+        "type": "string",
+        "default": "",
+        "description": "Chrome/Edge 可执行文件路径（PNG/PDF/GIF 渲染所需，留空则自动检测）"
+      },
+      "defaultScheme": {
+        "type": "string",
+        "default": "dark",
+        "description": "默认配色方案（daylight/dark/minimal）"
+      },
+      "defaultSize": {
+        "type": "string",
+        "default": "a4",
+        "description": "默认海报尺寸（a4/square/banner/story）"
+      },
+      "outputDir": {
+        "type": "string",
+        "default": "",
+        "description": "海报输出目录（留空则使用项目根 poster/）"
+      },
+      "extraTemplatesDirs": {
+        "type": "string",
+        "default": "",
+        "description": "额外模板目录路径（多个路径用逗号分隔）"
+      }
+    }
+  },
+  "uiHints": {
+    "browserPath": {
+      "label": "浏览器路径",
+      "placeholder": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "help": "用于 PNG/PDF/GIF 渲染的 Chrome 或 Edge 可执行文件路径，留空则自动检测"
+    },
+    "defaultScheme": {
+      "label": "默认配色方案",
+      "placeholder": "dark",
+      "help": "生成海报时的默认配色：daylight（亮色）、dark（暗色）、minimal（极简）"
+    },
+    "defaultSize": {
+      "label": "默认尺寸",
+      "placeholder": "a4",
+      "help": "生成海报时的默认尺寸：a4（竖版）、square（方形）、banner（横幅）、story（竖屏）"
+    },
+    "outputDir": {
+      "label": "输出目录",
+      "placeholder": "poster/",
+      "help": "海报文件的输出目录，留空使用项目默认位置",
+      "advanced": true
+    },
+    "extraTemplatesDirs": {
+      "label": "额外模板目录",
+      "placeholder": "/path/to/custom-templates",
+      "help": "自定义模板目录，多个路径用逗号分隔",
+      "advanced": true
+    }
+  }
+}
