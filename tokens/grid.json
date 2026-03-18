@@ -1,0 +1,25 @@
+{
+  "background": {
+    "color": "#FCD228",
+    "symbol": "势（Momentum）的场域",
+    "usage": "页面主背景色"
+  },
+  "grid": {
+    "size": "50px",
+    "symbol": "系统思维、结构",
+    "lineColor": "rgba(0, 0, 0, 0.08)",
+    "css": "linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px)",
+    "backgroundSize": "50px 50px"
+  },
+  "threejs": {
+    "enabled": true,
+    "opacity": 0.4,
+    "material": {
+      "color": "0x000000",
+      "wireframe": true,
+      "opacity": 0.15
+    },
+    "geometries": ["IcosahedronGeometry", "TorusKnotGeometry"],
+    "usage": "Three.js 线框几何体背景动画，低透明度叠加在网格之上"
+  }
+}

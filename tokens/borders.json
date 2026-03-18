@@ -1,0 +1,30 @@
+{
+  "width": {
+    "default": {
+      "value": "3px",
+      "symbol": "硬边界、确定性",
+      "usage": "卡片、按钮、输入框的统一边框宽度"
+    },
+    "thin": {
+      "value": "2px",
+      "usage": "标签过滤器、链接下划线"
+    },
+    "thick": {
+      "value": "4px",
+      "usage": "强调分隔线、引用块左边框、页脚顶部边框"
+    },
+    "hero": {
+      "value": "8px",
+      "usage": "页脚顶部黄色边框等超强调场景"
+    }
+  },
+  "color": {
+    "default": "#000000",
+    "on-dark": "#FFFFFF"
+  },
+  "radius": {
+    "none": "0px",
+    "note": "圆角在 JS 品牌中被禁用。唯一例外：Logo 圆形和 loading spinner。"
+  },
+  "style": "solid"
+}

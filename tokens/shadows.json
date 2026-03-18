@@ -1,0 +1,35 @@
+{
+  "brutal": {
+    "value": "4px 4px 0px 0px #000000",
+    "symbol": "决断力、清晰",
+    "usage": "默认硬阴影 — 按钮、搜索框、列表项"
+  },
+  "brutal-lg": {
+    "value": "8px 8px 0px 0px #000000",
+    "symbol": "决断力、清晰（强调）",
+    "usage": "大号硬阴影 — 区块标题"
+  },
+  "brutal-hover": {
+    "value": "2px 2px 0px 0px #000000",
+    "symbol": "交互反馈",
+    "usage": "hover 时缩减阴影，配合 translate(2px, 2px)"
+  },
+  "brutal-card": {
+    "value": "6px 6px 0px 0px #000000",
+    "usage": "卡片默认阴影"
+  },
+  "brutal-card-hover": {
+    "value": "4px 4px 0px 0px #000000",
+    "usage": "卡片 hover 阴影"
+  },
+  "brutal-white": {
+    "value": "4px 4px 0px 0px #FFFFFF",
+    "usage": "深色背景上的主按钮阴影"
+  },
+  "interaction": {
+    "default-translate": "translate(0, 0)",
+    "hover-translate": "translate(2px, 2px)",
+    "active-translate": "translate(4px, 4px)",
+    "transition": "all 0.1s"
+  }
+}

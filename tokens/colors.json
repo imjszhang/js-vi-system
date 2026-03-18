@@ -1,0 +1,53 @@
+{
+  "brand": {
+    "yellow": {
+      "value": "#FCD228",
+      "symbol": "势（Momentum）、能量、注意力",
+      "usage": "主色调，背景、强调、按钮高亮"
+    },
+    "black": {
+      "value": "#000000",
+      "symbol": "清醒冷峻、结构、道",
+      "usage": "文字、边框、阴影、主按钮背景"
+    },
+    "white": {
+      "value": "#FFFFFF",
+      "symbol": "纯粹、空间、无为",
+      "usage": "卡片背景、次要按钮、留白"
+    }
+  },
+  "auxiliary": {
+    "logo-fill": {
+      "value": "#37342F",
+      "usage": "Logo 内部 JS 字形填充色"
+    }
+  },
+  "semantic": {
+    "error": {
+      "value": "#EF4444",
+      "usage": "错误状态"
+    },
+    "info": {
+      "value": "#2563EB",
+      "usage": "信息提示"
+    },
+    "success": {
+      "value": "#4ADE80",
+      "usage": "成功状态"
+    }
+  },
+  "surface": {
+    "grid-line": {
+      "value": "rgba(0, 0, 0, 0.08)",
+      "usage": "技术网格线颜色"
+    },
+    "scrollbar-hover": {
+      "value": "#333333",
+      "usage": "滚动条 hover 状态"
+    },
+    "placeholder": {
+      "value": "#999999",
+      "usage": "输入框占位符文字"
+    }
+  }
+}

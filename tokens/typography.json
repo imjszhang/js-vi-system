@@ -1,0 +1,48 @@
+{
+  "fontFamily": {
+    "sans": {
+      "value": ["Space Grotesk", "sans-serif"],
+      "usage": "标题、正文 — 几何现代感",
+      "source": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap",
+      "weights": [300, 400, 500, 600, 700]
+    },
+    "mono": {
+      "value": ["JetBrains Mono", "monospace"],
+      "usage": "代码、终端、标签 — 工程精确感",
+      "source": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap",
+      "weights": [400, 700, 800]
+    }
+  },
+  "fontSize": {
+    "xs": "0.75rem",
+    "sm": "0.875rem",
+    "base": "1rem",
+    "lg": "1.25rem",
+    "xl": "1.5rem",
+    "2xl": "2rem",
+    "3xl": "2.25rem",
+    "4xl": "3rem",
+    "5xl": "3.75rem",
+    "6xl": "4.5rem",
+    "hero": "6rem"
+  },
+  "fontWeight": {
+    "light": 300,
+    "regular": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700,
+    "extrabold": 800,
+    "black": 900
+  },
+  "lineHeight": {
+    "tight": 1.1,
+    "normal": 1.5,
+    "relaxed": 1.75
+  },
+  "textTransform": {
+    "headings": "uppercase",
+    "tags": "uppercase",
+    "buttons": "uppercase"
+  }
+}

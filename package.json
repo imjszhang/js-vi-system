@@ -1,0 +1,28 @@
+{
+  "name": "js-vi-system",
+  "version": "1.0.0",
+  "description": "JS Brand Visual Identity System — Neo-Brutalism + Cyberpunk design tokens, components, and brand guidelines.",
+  "type": "module",
+  "main": "css/tailwind-preset.js",
+  "exports": {
+    ".": "./css/tailwind-preset.js",
+    "./tokens": "./tokens/index.js",
+    "./css/tokens.css": "./css/tokens.css",
+    "./css/brutal.css": "./css/brutal.css",
+    "./tailwind-preset": "./css/tailwind-preset.js"
+  },
+  "scripts": {
+    "build": "node build/generate.js",
+    "preview": "npx serve preview -l 3000"
+  },
+  "keywords": [
+    "design-system",
+    "visual-identity",
+    "neo-brutalism",
+    "design-tokens",
+    "tailwind-preset"
+  ],
+  "author": "imjszhang",
+  "license": "MIT",
+  "homepage": "https://github.com/imjszhang/js-vi-system"
+}

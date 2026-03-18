@@ -1,0 +1,54 @@
+/* Auto-generated from tokens/*.json — do not edit manually */
+/* Run `npm run build` to regenerate */
+
+:root {
+  /* Colors — Brand */
+  --js-color-brand-yellow: #FCD228;
+  --js-color-brand-black: #000000;
+  --js-color-brand-white: #FFFFFF;
+
+  /* Colors — Auxiliary */
+  --js-color-logo-fill: #37342F;
+
+  /* Colors — Semantic */
+  --js-color-error: #EF4444;
+  --js-color-info: #2563EB;
+  --js-color-success: #4ADE80;
+
+  /* Colors — Surface */
+  --js-color-grid-line: rgba(0, 0, 0, 0.08);
+  --js-color-scrollbar-hover: #333333;
+  --js-color-placeholder: #999999;
+
+  /* Typography */
+  --js-font-sans: 'Space Grotesk', sans-serif;
+  --js-font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows */
+  --js-shadow-brutal: 4px 4px 0px 0px #000000;
+  --js-shadow-brutal-lg: 8px 8px 0px 0px #000000;
+  --js-shadow-brutal-hover: 2px 2px 0px 0px #000000;
+  --js-shadow-brutal-card: 6px 6px 0px 0px #000000;
+  --js-shadow-brutal-card-hover: 4px 4px 0px 0px #000000;
+  --js-shadow-brutal-white: 4px 4px 0px 0px #FFFFFF;
+
+  /* Borders */
+  --js-border-width: 3px;
+  --js-border-width-thin: 2px;
+  --js-border-width-thick: 4px;
+  --js-border-width-hero: 8px;
+  --js-border-color: #000000;
+
+  /* Spacing */
+  --js-spacing-base: 4px;
+  --js-layout-max-width: 1280px;
+  --js-layout-section-gap: 96px;
+
+  /* Grid */
+  --js-grid-size: 50px;
+  --js-grid-line-color: rgba(0, 0, 0, 0.08);
+
+  /* Animation */
+  --js-transition-fast: all 0.1s;
+  --js-transition-default: all 0.2s ease-in-out;
+}

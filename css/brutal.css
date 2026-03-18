@@ -1,0 +1,440 @@
+/*
+ * JS Visual Identity System — Neo-Brutalism Component Styles
+ * Requires: tokens.css (CSS custom properties)
+ *
+ * All color/shadow/border values reference var(--js-*) tokens.
+ * Class names are backward-compatible with agent-js/ui and js-clawhub.
+ */
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+body {
+    background-color: var(--js-color-brand-yellow);
+    color: var(--js-color-brand-black);
+    background-image:
+        linear-gradient(var(--js-color-grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--js-color-grid-line) 1px, transparent 1px);
+    background-size: var(--js-grid-size) var(--js-grid-size);
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--js-color-brand-yellow);
+    border-left: var(--js-border-width) solid var(--js-border-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--js-color-brand-black);
+    border: var(--js-border-width) solid var(--js-color-brand-yellow);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--js-color-scrollbar-hover);
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+.brutal-card {
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal-card);
+    transition: var(--js-transition-default);
+}
+
+.brutal-card:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-card-hover);
+}
+
+.brutal-card.brutal-card-static:hover {
+    transform: none;
+    box-shadow: var(--js-shadow-brutal-card);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.brutal-btn {
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: var(--js-transition-fast);
+    cursor: pointer;
+}
+
+.brutal-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+.brutal-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px var(--js-border-color);
+}
+
+.brutal-btn-primary {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal-white);
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: var(--js-transition-fast);
+    cursor: pointer;
+}
+
+.brutal-btn-primary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+.brutal-btn-secondary {
+    background: var(--js-color-brand-white);
+    color: var(--js-color-brand-black);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: var(--js-transition-fast);
+    cursor: pointer;
+}
+
+.brutal-btn-secondary:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+/* ========================================
+   INPUT
+   ======================================== */
+
+.brutal-input {
+    border: var(--js-border-width) solid var(--js-border-color);
+    background: var(--js-color-brand-white);
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.1);
+    transition: var(--js-transition-default);
+}
+
+.brutal-input:focus {
+    outline: none;
+    box-shadow: var(--js-shadow-brutal);
+}
+
+/* ========================================
+   SEARCH
+   ======================================== */
+
+.brutal-search {
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    font-family: var(--js-font-mono);
+    padding: 12px 16px;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    transition: var(--js-transition-fast);
+}
+
+.brutal-search:focus {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+.brutal-search::placeholder {
+    color: var(--js-color-placeholder);
+}
+
+/* ========================================
+   TAGS
+   ======================================== */
+
+.brutal-tag {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    display: inline-block;
+    padding: 2px 8px;
+    font-family: var(--js-font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.brutal-tag-filter {
+    background: var(--js-color-brand-white);
+    color: var(--js-color-brand-black);
+    display: inline-block;
+    padding: 4px 12px;
+    font-family: var(--js-font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: var(--js-border-width-thin) solid var(--js-border-color);
+    cursor: pointer;
+    transition: var(--js-transition-fast);
+}
+
+.brutal-tag-filter:hover,
+.brutal-tag-filter.active {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+}
+
+/* ========================================
+   SECTION TITLE
+   ======================================== */
+
+.brutal-section-title {
+    display: inline-block;
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    padding: 8px 16px;
+    box-shadow: var(--js-shadow-brutal-card);
+    font-size: 2.25rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* ========================================
+   SELECT DROPDOWN
+   ======================================== */
+
+.brutal-select {
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    font-family: var(--js-font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 8px 32px 8px 12px;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23000'%3E%3Cpath d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: var(--js-transition-fast);
+}
+
+.brutal-select:focus {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+/* ========================================
+   ICON BUTTONS
+   ======================================== */
+
+.brutal-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--js-color-brand-white);
+    color: var(--js-color-brand-black);
+    cursor: pointer;
+    border: none;
+    transition: var(--js-transition-fast);
+}
+
+.brutal-icon-btn + .brutal-icon-btn {
+    border-left: var(--js-border-width) solid var(--js-border-color);
+}
+
+.brutal-icon-btn:hover,
+.brutal-icon-btn.active {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+}
+
+/* ========================================
+   LIST VIEW ITEM
+   ======================================== */
+
+.brutal-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--js-color-brand-white);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    text-decoration: none;
+    color: var(--js-color-brand-black);
+    transition: var(--js-transition-default);
+}
+
+.brutal-list-item:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--js-shadow-brutal-hover);
+}
+
+.brutal-list-item + .brutal-list-item {
+    margin-top: 8px;
+}
+
+/* ========================================
+   TERMINAL CODE BLOCK
+   ======================================== */
+
+.brutal-terminal {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal-card);
+    font-family: var(--js-font-mono);
+    font-size: 0.75rem;
+    padding: 16px;
+}
+
+.brutal-terminal .terminal-dots {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.brutal-terminal .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+/* ========================================
+   TEXT EFFECTS
+   ======================================== */
+
+.text-stroke {
+    -webkit-text-stroke: 1px var(--js-color-brand-black);
+    color: transparent;
+}
+
+/* ========================================
+   MARKDOWN PROSE
+   ======================================== */
+
+.brutal-prose h1,
+.brutal-prose h2,
+.brutal-prose h3 {
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.brutal-prose h1 { font-size: 2rem; }
+.brutal-prose h2 { font-size: 1.5rem; border-bottom: var(--js-border-width) solid var(--js-border-color); padding-bottom: 0.5rem; }
+.brutal-prose h3 { font-size: 1.25rem; }
+
+.brutal-prose p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+}
+
+.brutal-prose a {
+    color: var(--js-color-brand-black);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+.brutal-prose a:hover {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    text-decoration: none;
+    padding: 0 4px;
+}
+
+.brutal-prose code {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    padding: 2px 6px;
+    font-family: var(--js-font-mono);
+    font-size: 0.875rem;
+}
+
+.brutal-prose pre {
+    background: var(--js-color-brand-black);
+    color: var(--js-color-brand-yellow);
+    border: var(--js-border-width) solid var(--js-border-color);
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    font-family: var(--js-font-mono);
+    font-size: 0.875rem;
+}
+
+.brutal-prose pre code {
+    background: none;
+    padding: 0;
+}
+
+.brutal-prose ul,
+.brutal-prose ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.brutal-prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.75;
+}
+
+.brutal-prose blockquote {
+    border-left: var(--js-border-width-thick) solid var(--js-border-color);
+    padding: 1rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.brutal-prose img {
+    border: var(--js-border-width) solid var(--js-border-color);
+    box-shadow: var(--js-shadow-brutal);
+    max-width: 100%;
+}
+
+/* ========================================
+   LOADING
+   ======================================== */
+
+.brutal-loading {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: var(--js-border-width) solid var(--js-border-color);
+    border-top-color: var(--js-color-brand-yellow);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+.opacity-0-init { opacity: 0; }
