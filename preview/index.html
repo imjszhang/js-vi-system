@@ -183,65 +183,58 @@
         <!-- COLORS -->
         <!-- ═══════════════════════════════════════ -->
         <section id="colors" class="section-anchor mb-24">
-            <h2 class="brutal-section-title mb-10" data-zh="色彩系统" data-en="Color System">色彩系统</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Colors — exact layout from agent-js/ui design_system_demo.html -->
+                <div class="brutal-card p-8 bg-white">
+                    <h2 class="text-4xl font-black mb-8 uppercase border-b-4 border-black pb-2" data-zh="色彩系统" data-en="Color Palette">色彩系统</h2>
+                    <div class="space-y-6">
+                        <div class="flex border-3 border-black shadow-brutal">
+                            <div class="w-1/2 bg-[#FCD228] p-6 flex flex-col justify-between h-40">
+                                <span class="font-bold text-xl">Yellow</span>
+                                <span class="font-mono bg-black text-[#FCD228] self-start px-2">#FCD228</span>
+                            </div>
+                            <div class="w-1/2 bg-black p-6 flex flex-col justify-between h-40">
+                                <span class="font-bold text-xl text-white">Black</span>
+                                <span class="font-mono bg-white text-black self-start px-2">#000000</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-white border-3 border-black p-4 text-center font-bold shadow-brutal">White</div>
+                            <div class="bg-red-500 border-3 border-black p-4 text-center font-bold shadow-brutal text-white">Error</div>
+                            <div class="bg-blue-600 border-3 border-black p-4 text-center font-bold shadow-brutal text-white">Info</div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-                <!-- JS Yellow -->
-                <div class="brutal-card overflow-hidden">
-                    <div class="bg-[#FCD228] h-40 flex items-end p-6">
-                        <span class="font-mono bg-black text-[#FCD228] px-3 py-1 text-sm font-bold">#FCD228</span>
+                <!-- Color Symbolism — from USER.md -->
+                <div class="brutal-card p-8 bg-black text-white">
+                    <h2 class="text-4xl font-black mb-8 uppercase border-b-4 border-white pb-2 text-[#FCD228]" data-zh="象征意义" data-en="Symbolism">象征意义</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-[#FCD228] border-2 border-white flex-shrink-0 mt-1"></div>
+                            <div>
+                                <p class="font-bold text-[#FCD228] text-lg uppercase">Yellow #FCD228</p>
+                                <p class="font-mono text-sm text-gray-300" data-zh="势（Momentum）、能量、注意力 — 页面背景色" data-en="Momentum, Energy, Attention — page background">势（Momentum）、能量、注意力 — 页面背景色</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-white border-2 border-white flex-shrink-0 mt-1"></div>
+                            <div>
+                                <p class="font-bold text-white text-lg uppercase">Black #000000</p>
+                                <p class="font-mono text-sm text-gray-300" data-zh="清醒冷峻、结构、道 — 文字/边框/阴影" data-en="Clarity, Structure, Dao — text/borders/shadows">清醒冷峻、结构、道 — 文字/边框/阴影</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-8 h-8 bg-white border-2 border-gray-600 flex-shrink-0 mt-1"></div>
+                            <div>
+                                <p class="font-bold text-white text-lg uppercase">White #FFFFFF</p>
+                                <p class="font-mono text-sm text-gray-300" data-zh="纯粹、空间、无为 — 卡片/按钮表面" data-en="Purity, Space, Wu-Wei — cards/button surfaces">纯粹、空间、无为 — 卡片/按钮表面</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-700 pt-4">
+                            <p class="font-mono text-xs text-gray-500" data-zh="语义色（red-500 / blue-600 / green-400）使用 Tailwind 默认色板" data-en="Semantic colors (red-500 / blue-600 / green-400) use Tailwind defaults">语义色（red-500 / blue-600 / green-400）使用 Tailwind 默认色板</p>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-black uppercase mb-1">JS Yellow</h3>
-                        <p class="font-mono text-xs text-gray-500 mb-3">--js-color-brand-yellow</p>
-                        <p class="text-sm font-bold" data-zh="象征：势（Momentum）、能量、注意力" data-en="Symbol: Momentum, Energy, Attention">象征：势（Momentum）、能量、注意力</p>
-                    </div>
-                </div>
-                <!-- Black -->
-                <div class="brutal-card overflow-hidden">
-                    <div class="bg-black h-40 flex items-end p-6">
-                        <span class="font-mono bg-white text-black px-3 py-1 text-sm font-bold">#000000</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-black uppercase mb-1">Black</h3>
-                        <p class="font-mono text-xs text-gray-500 mb-3">--js-color-brand-black</p>
-                        <p class="text-sm font-bold" data-zh="象征：清醒冷峻、结构、道" data-en="Symbol: Clarity, Structure, Dao">象征：清醒冷峻、结构、道</p>
-                    </div>
-                </div>
-                <!-- White -->
-                <div class="brutal-card overflow-hidden">
-                    <div class="bg-white h-40 flex items-end p-6 border-b-3 border-black">
-                        <span class="font-mono bg-black text-white px-3 py-1 text-sm font-bold">#FFFFFF</span>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-black uppercase mb-1">White</h3>
-                        <p class="font-mono text-xs text-gray-500 mb-3">--js-color-brand-white</p>
-                        <p class="text-sm font-bold" data-zh="象征：纯粹、空间、无为" data-en="Symbol: Purity, Space, Wu-Wei">象征：纯粹、空间、无为</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Auxiliary / Semantic -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="brutal-card p-4">
-                    <div class="w-full h-16 bg-[#37342F] border-3 border-black mb-3"></div>
-                    <p class="font-mono text-xs font-bold">#37342F</p>
-                    <p class="text-xs" data-zh="Logo 填充" data-en="Logo Fill">Logo 填充</p>
-                </div>
-                <div class="brutal-card p-4">
-                    <div class="w-full h-16 bg-[#EF4444] border-3 border-black mb-3"></div>
-                    <p class="font-mono text-xs font-bold">#EF4444</p>
-                    <p class="text-xs">Error</p>
-                </div>
-                <div class="brutal-card p-4">
-                    <div class="w-full h-16 bg-[#2563EB] border-3 border-black mb-3"></div>
-                    <p class="font-mono text-xs font-bold">#2563EB</p>
-                    <p class="text-xs">Info</p>
-                </div>
-                <div class="brutal-card p-4">
-                    <div class="w-full h-16 bg-[#4ADE80] border-3 border-black mb-3"></div>
-                    <p class="font-mono text-xs font-bold">#4ADE80</p>
-                    <p class="text-xs">Success</p>
                 </div>
             </div>
         </section>

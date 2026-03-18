@@ -7,18 +7,13 @@
   --js-color-brand-black: #000000;
   --js-color-brand-white: #FFFFFF;
 
-  /* Colors — Auxiliary */
+  /* Colors — Logo */
   --js-color-logo-fill: #37342F;
 
-  /* Colors — Semantic */
-  --js-color-error: #EF4444;
-  --js-color-info: #2563EB;
-  --js-color-success: #4ADE80;
-
-  /* Colors — Surface */
-  --js-color-grid-line: rgba(0, 0, 0, 0.08);
-  --js-color-scrollbar-hover: #333333;
-  --js-color-placeholder: #999999;
+  /* Colors — UI (dark contexts) */
+  --js-color-dark-surface: #111111;
+  --js-color-dark-surface-alt: #1a1a1a;
+  --js-color-muted: #333333;
 
   /* Typography */
   --js-font-sans: 'Space Grotesk', sans-serif;

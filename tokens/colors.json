@@ -16,38 +16,22 @@
       "usage": "卡片背景、次要按钮、留白"
     }
   },
-  "auxiliary": {
-    "logo-fill": {
+  "logo": {
+    "fill": {
       "value": "#37342F",
       "usage": "Logo 内部 JS 字形填充色"
     }
   },
   "semantic": {
-    "error": {
-      "value": "#EF4444",
-      "usage": "错误状态"
-    },
-    "info": {
-      "value": "#2563EB",
-      "usage": "信息提示"
-    },
-    "success": {
-      "value": "#4ADE80",
-      "usage": "成功状态"
-    }
+    "_note": "语义色使用 Tailwind 默认色板，不自定义色值，保持与 Tailwind 生态一致",
+    "error": "red-500",
+    "info": "blue-600",
+    "success": "green-400"
   },
-  "surface": {
-    "grid-line": {
-      "value": "rgba(0, 0, 0, 0.08)",
-      "usage": "技术网格线颜色"
-    },
-    "scrollbar-hover": {
-      "value": "#333333",
-      "usage": "滚动条 hover 状态"
-    },
-    "placeholder": {
-      "value": "#999999",
-      "usage": "输入框占位符文字"
-    }
+  "ui": {
+    "_note": "UI 辅助色来自 Tailwind 默认灰度色阶，用于深色背景上的次要文字等场景",
+    "dark-surface": "#111111",
+    "dark-surface-alt": "#1a1a1a",
+    "muted": "#333333"
   }
 }
