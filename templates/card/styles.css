@@ -1,0 +1,107 @@
+/* Poster Type: Card */
+
+.poster-card {
+  background-color: var(--p-bg);
+  color: var(--p-text);
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  position: relative;
+}
+
+.poster-card .card-deco {
+  position: absolute;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  opacity: 0.12;
+  color: var(--p-text);
+  pointer-events: none;
+}
+
+.poster-card .card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 3px solid var(--p-border);
+  box-shadow: 8px 8px 0px 0px var(--p-shadow);
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.poster-card .card-tag {
+  display: inline-block;
+  background: var(--p-tag-bg);
+  color: var(--p-tag-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+
+.poster-card .card-title {
+  font-size: 48px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.poster-card .card-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.poster-card .card-details {
+  margin-top: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 2;
+  color: #666;
+}
+
+.poster-card .card-details strong {
+  color: #000;
+  font-weight: 700;
+}
+
+.poster-card .card-bottom-bar {
+  margin-top: 0;
+  background: var(--p-text);
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid var(--p-border);
+  border-top: none;
+  box-shadow: 8px 8px 0px 0px var(--p-shadow);
+  position: relative;
+  z-index: 1;
+}
+
+.poster-card .card-bottom-bar .bar-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Scheme-specific overrides for card bottom bar */
+.scheme-daylight .poster-card .card-bottom-bar { background: #000; }
+.scheme-daylight .poster-card .card-bottom-bar .bar-text { color: #FCD228; }
+
+.scheme-dark .poster-card .card-bottom-bar { background: #FCD228; }
+.scheme-dark .poster-card .card-bottom-bar .bar-text { color: #000; }
+
+.scheme-minimal .poster-card .card-bottom-bar { background: #000; }
+.scheme-minimal .poster-card .card-bottom-bar .bar-text { color: #FFF; }

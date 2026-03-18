@@ -1,0 +1,20 @@
+{
+  "name": "card",
+  "label": "Card",
+  "fields": [
+    { "key": "tag", "type": "string", "default": "EVENT" },
+    { "key": "title", "type": "text", "required": true, "default": "SYSTEM\nINITIALIZED" },
+    { "key": "subtitle", "type": "string", "default": "// Mastering AI with Eastern Philosophy" },
+    { "key": "date", "type": "string", "default": "2026.03.19" },
+    { "key": "location", "type": "string", "default": "CYBERSPACE" },
+    { "key": "info", "type": "string", "default": "js@cyber-taoist.com" }
+  ],
+  "sizes": ["a4", "square", "banner", "story"],
+  "schemes": ["daylight", "dark", "minimal"],
+  "animation": {
+    "supported": true,
+    "duration": 2500,
+    "defaultFps": 10,
+    "description": "Card slide-up entrance with stagger elements"
+  }
+}

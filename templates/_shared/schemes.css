@@ -1,0 +1,40 @@
+/* Color Scheme Variables — extracted from VI system */
+
+.scheme-daylight {
+  --p-bg: #FCD228;
+  --p-text: #000000;
+  --p-accent: #000000;
+  --p-surface: #FFFFFF;
+  --p-border: #000000;
+  --p-shadow: #000000;
+  --p-muted: #555;
+  --p-grid-line: rgba(0,0,0,0.08);
+  --p-tag-bg: #000000;
+  --p-tag-text: #FCD228;
+}
+
+.scheme-dark {
+  --p-bg: #000000;
+  --p-text: #FCD228;
+  --p-accent: #FCD228;
+  --p-surface: #111111;
+  --p-border: #FCD228;
+  --p-shadow: #FCD228;
+  --p-muted: #888;
+  --p-grid-line: rgba(252,210,40,0.06);
+  --p-tag-bg: #FCD228;
+  --p-tag-text: #000000;
+}
+
+.scheme-minimal {
+  --p-bg: #FFFFFF;
+  --p-text: #000000;
+  --p-accent: #FCD228;
+  --p-surface: #FFFFFF;
+  --p-border: #000000;
+  --p-shadow: #000000;
+  --p-muted: #888;
+  --p-grid-line: rgba(0,0,0,0.04);
+  --p-tag-bg: #000000;
+  --p-tag-text: #FCD228;
+}

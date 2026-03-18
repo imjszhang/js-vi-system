@@ -1,0 +1,19 @@
+{
+  "name": "terminal",
+  "label": "Terminal",
+  "fields": [
+    { "key": "title", "type": "text", "required": true, "default": "SYSTEM\nINITIALIZED" },
+    { "key": "subtitle", "type": "string", "default": "// Mastering AI with Eastern Philosophy" },
+    { "key": "date", "type": "string", "default": "2026.03.19" },
+    { "key": "location", "type": "string", "default": "CYBERSPACE" },
+    { "key": "info", "type": "string", "default": "js@cyber-taoist.com" }
+  ],
+  "sizes": ["a4", "square", "banner", "story"],
+  "schemes": ["daylight", "dark", "minimal"],
+  "animation": {
+    "supported": true,
+    "duration": 3000,
+    "defaultFps": 10,
+    "description": "Typing effect with stagger entrance and cursor blink"
+  }
+}
