@@ -13,7 +13,8 @@
     "./css/tokens.css": "./css/tokens.css",
     "./css/brutal.css": "./css/brutal.css",
     "./tailwind-preset": "./css/tailwind-preset.js",
-    "./templates": "./core/template-engine.js"
+    "./templates": "./core/template-engine.js",
+    "./templates/_shared/*": "./templates/_shared/*"
   },
   "scripts": {
     "build": "node build/generate.js",

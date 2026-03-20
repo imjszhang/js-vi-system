@@ -9,14 +9,18 @@ function readCSS(relativePath) {
   return readFileSync(join(__dirname, relativePath), 'utf-8');
 }
 
-export function wrapHTML(fragment, { scheme = 'dark', size = 'a4', templateName = '' } = {}) {
+export function wrapHTML(fragment, { scheme = 'dark', size = 'a4', templateName = '', templateDir = '' } = {}) {
   const dim = SIZES[size] || SIZES.a4;
 
   const schemesCSS = readCSS('schemes.css');
   const baseCSS = readCSS('base.css');
 
   let templateCSS = '';
-  if (templateName) {
+  if (templateDir) {
+    try {
+      templateCSS = readFileSync(join(templateDir, 'styles.css'), 'utf-8');
+    } catch (_) { /* template may not have styles */ }
+  } else if (templateName) {
     try {
       templateCSS = readCSS(join('..', templateName, 'styles.css'));
     } catch (_) { /* template may not have styles */ }

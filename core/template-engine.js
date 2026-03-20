@@ -49,11 +49,12 @@ export async function loadTemplate(name) {
 }
 
 export async function renderToHTML(templateName, content, options = {}) {
-  const { render } = await loadTemplate(templateName);
+  const { meta, render } = await loadTemplate(templateName);
   const fragment = render(content, options);
   return wrapHTML(fragment, {
     scheme: options.scheme || 'dark',
     size: options.size || 'a4',
     templateName,
+    templateDir: meta._dir,
   });
 }
