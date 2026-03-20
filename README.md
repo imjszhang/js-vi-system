@@ -1,6 +1,8 @@
 # JS Visual Identity System
 
-The single source of truth for the **JS** brand — design tokens, component styles, and brand guidelines built on **Neo-Brutalism + Cyberpunk** aesthetics.
+The single source of truth for the **JS** brand — design tokens, component styles, and brand guidelines built on **Neo-Brutalism + Cyberpunk** aesthetics. It also ships a **CLI poster generator** (templates → HTML/PNG/PDF/GIF, etc.).
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## Quick Start
 
@@ -26,6 +28,15 @@ Or use the standalone CSS:
 <link rel="stylesheet" href="js-vi-system/css/brutal.css">
 ```
 
+After `npm install` in a clone of this repo, you can run:
+
+```bash
+npm run poster -- --help          # or: npx js-vi poster --help
+node bin/js-vi.js templates       # list poster templates
+```
+
+The package exports `js-vi-system/templates` (template engine) and `js-vi-system/templates/_shared/*` for shared template assets.
+
 ## Structure
 
 ```
@@ -35,8 +46,13 @@ assets/          Logo SVG, font references
 brand/           Brand philosophy, identity, design principles
 character/       Cyber-Taoist character specification
 voice/           Tone, style, and language guidelines
-preview/         Interactive brand manual (open index.html)
+preview/         Interactive brand manual (index.html) and poster gallery (posters.html)
 build/           Token → CSS/JS generation script
+bin/             CLI entry (js-vi)
+cli/             Commander commands (poster, templates, build)
+core/            Template engine, renderer wiring, config
+templates/       Poster templates (e.g. terminal, card, cybertaoist, wechat-cover)
+renderers/       HTML, image, PDF, SVG, GIF output adapters
 ```
 
 ## Brand Colors

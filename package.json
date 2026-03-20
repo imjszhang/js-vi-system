@@ -1,6 +1,6 @@
 {
   "name": "js-vi-system",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JS Brand Visual Identity System — Neo-Brutalism + Cyberpunk design tokens, components, and brand guidelines. Includes CLI poster generator.",
   "type": "module",
   "main": "css/tailwind-preset.js",

@@ -1,7 +1,7 @@
 ---
 name: js-vi-system
 description: JS Brand Visual Identity System — Neo-Brutalism + Cyberpunk design tokens, poster generator, and brand guidelines.
-version: 1.1.0
+version: 1.1.1
 metadata:
   openclaw:
     emoji: "\U0001F3A8"
@@ -165,7 +165,7 @@ JS VI System provides a complete brand Visual Identity toolkit:
 1. **Design Tokens** — colors, typography, shadows, borders, spacing, animation, and grid definitions in JSON
 2. **CSS Generation** — tokens compiled to CSS custom properties (`tokens.css`) and Neo-Brutalism component styles (`brutal.css`)
 3. **Tailwind Preset** — tokens mapped to a Tailwind CSS theme preset for seamless integration
-4. **Poster Generator** — template-based poster creation with multiple output formats (HTML/PNG/JPEG/SVG/PDF/GIF)
+4. **Poster Generator** — template-based poster creation with multiple output formats (HTML/PNG/JPEG/SVG/PDF/GIF); HTML wrapping inlines shared and per-template CSS, resolving `styles.css` from each template’s directory (including `extraTemplatesDirs`)
 5. **Brand Documentation** — philosophy, identity, design principles, and tone-of-voice guidelines
 
 The visual style is **Neo-Brutalism + Cyberpunk**: hard borders, hard shadows, no rounded corners, high-contrast black/yellow/white palette, infused with Cyber-Taoist philosophy.
@@ -214,7 +214,7 @@ The OpenClaw plugin wraps the template engine, renderer factory, token loader, a
 openclaw vi templates                          List available poster templates
 openclaw vi poster -t <name> [options]         Generate a poster
   -s, --scheme <scheme>                          Color scheme (daylight/dark/minimal)
-  --size <size>                                  Poster size (a4/square/banner/story)
+  --size <size>                                  Poster size (a4/square/banner/story/wechat-cover/wechat-thumb)
   -f, --format <format>                          Output format (html/png/jpeg/svg/gif/pdf)
   -o, --output <path>                            Output file path
   --title <text>                                 Poster title (supports \n)
@@ -257,11 +257,14 @@ In standalone mode, run `npm run preview` to serve the same content on `http://l
 | `terminal` | Terminal / command-line aesthetic with typing animation | Tech talks, product launches, developer events |
 | `card` | Card layout with slide-up entrance animation | General events, social media cards |
 | `cybertaoist` | Cyber-Taoist style with logo ring pulse animation | Brand campaigns, philosophy themes, premium events |
+| `wechat-cover` | WeChat headline–style cover layout | Official Account cover (900×383), square thumb (500×500) |
 
 All templates support:
 - **Schemes**: `daylight` (light), `dark` (default, most on-brand), `minimal` (black & white)
-- **Sizes**: `a4` (595×842), `square` (640×640), `banner` (640×360, 16:9), `story` (420×748, 9:16)
+- **Sizes**: `a4` (595×842), `square` (640×640), `banner` (640×360, 16:9), `story` (420×748, 9:16), `wechat-cover` (900×383), `wechat-thumb` (500×500)
 - **Formats**: `html` (fastest, no deps), `png`/`jpeg`/`pdf`/`gif` (require Chrome/Edge), `svg`
+
+The `wechat-cover` template does not declare motion/animation (static layout); other templates may include CSS animations for GIF capture.
 
 ## Skill Bundle Structure
 
@@ -303,7 +306,8 @@ js-vi-system/
 │   ├── _shared/                          ← Shared assets (base CSS, logo, utils)
 │   ├── terminal/                         ← Terminal-style template
 │   ├── card/                             ← Card-style template
-│   └── cybertaoist/                      ← Cyber-Taoist template
+│   ├── cybertaoist/                      ← Cyber-Taoist template
+│   └── wechat-cover/                     ← WeChat cover / thumb template
 ├── renderers/
 │   ├── html.js                           ← HTML file output
 │   ├── image.js                          ← PNG/JPEG via Puppeteer screenshot
@@ -400,7 +404,7 @@ Restart OpenClaw to load the plugin.
 |--------|------|---------|-------------|
 | `browserPath` | string | `""` | Chrome/Edge executable path (required for PNG/PDF/GIF; auto-detect if empty) |
 | `defaultScheme` | string | `"dark"` | Default color scheme (daylight/dark/minimal) |
-| `defaultSize` | string | `"a4"` | Default poster size (a4/square/banner/story) |
+| `defaultSize` | string | `"a4"` | Default poster size (a4/square/banner/story/wechat-cover/wechat-thumb) |
 | `outputDir` | string | `""` | Poster output directory (empty = project root `poster/`) |
 | `extraTemplatesDirs` | string | `""` | Additional template directories (comma-separated paths) |
 
@@ -444,7 +448,7 @@ Expected output:
 | `Unsupported format: <fmt>` | Invalid output format | Use one of: html, png, jpeg, svg, gif, pdf |
 | PNG/PDF/GIF generation fails | Chrome/Edge not found | Set `browserPath` in plugin config or pass `--browser-path` flag |
 | `Invalid scheme: <name>` | Wrong color scheme name | Use one of: daylight, dark, minimal |
-| `Invalid size: <name>` | Wrong size name | Use one of: a4, square, banner, story |
+| `Invalid size: <name>` | Wrong size name | Use one of: a4, square, banner, story, wechat-cover, wechat-thumb |
 | Tools not appearing in OpenClaw | Plugin path wrong | Ensure path in `plugins.load.paths` points to `openclaw-plugin/` subdirectory |
 | Brand manual not loading | HTTP routes not registered | Check plugin is enabled in `openclaw.json`; access via `/plugins/js-vi/` |
 

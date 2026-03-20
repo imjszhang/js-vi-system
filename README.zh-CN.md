@@ -1,6 +1,8 @@
 # JS 视觉身份系统
 
-**JS** 品牌的唯一权威来源 — 基于 **Neo-Brutalism + Cyberpunk** 美学的设计 Token、组件样式和品牌规范。
+**JS** 品牌的唯一权威来源 — 基于 **Neo-Brutalism + Cyberpunk** 美学的设计 Token、组件样式和品牌规范。另提供 **CLI 海报生成器**（多模板、多格式输出）。
+
+版本与变更记录见 [CHANGELOG.md](./CHANGELOG.md)。
 
 ## 快速开始
 
@@ -26,6 +28,15 @@ export default {
 <link rel="stylesheet" href="js-vi-system/css/brutal.css">
 ```
 
+在本仓库根目录执行 `npm install` 后，可使用：
+
+```bash
+npm run poster -- --help          # 或：npx js-vi poster --help
+node bin/js-vi.js templates       # 列出海报模板
+```
+
+npm 包导出 `js-vi-system/templates`（模板引擎）及 `js-vi-system/templates/_shared/*`（共享模板静态资源子路径）。
+
 ## 结构
 
 ```
@@ -35,8 +46,13 @@ assets/          Logo SVG、字体引用
 brand/           品牌哲学、身份、设计原则
 character/       Cyber-Taoist 人物形象规格
 voice/           调性、风格、语言规范
-preview/         交互式品牌手册（打开 index.html）
+preview/         交互式品牌手册（index.html）与海报画廊（posters.html）
 build/           Token → CSS/JS 生成脚本
+bin/             CLI 入口（js-vi）
+cli/             Commander 命令（poster、templates、build）
+core/            模板引擎、渲染与配置
+templates/       海报模板（如 terminal、card、cybertaoist、wechat-cover）
+renderers/       HTML / 位图 / PDF / SVG / GIF 等输出适配
 ```
 
 ## 品牌色

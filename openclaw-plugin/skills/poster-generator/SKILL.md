@@ -1,7 +1,7 @@
 ---
 name: poster-generator
 description: 使用 JS VI System 品牌视觉识别系统生成海报。支持多种模板、配色方案、尺寸和输出格式。
-version: 1.0.0
+version: 1.0.1
 author: js-vi-system
 ---
 
@@ -24,6 +24,7 @@ author: js-vi-system
 | `terminal` | 终端/命令行风格，打字机动画 | 技术分享、产品发布、极客活动 |
 | `card` | 卡片式布局，滑入动画 | 通用活动、社交媒体卡片 |
 | `cybertaoist` | 赛博道家风格，Logo 脉冲动画 | 品牌宣传、哲学主题、高端活动 |
+| `wechat-cover` | 公众号封面 / 略缩图风格排版 | 头条封面（900×）、方形略缩图（500×） |
 
 ## 配色方案
 
@@ -41,6 +42,8 @@ author: js-vi-system
 | `square` | 640×640 方形 | 社交媒体头像、Instagram |
 | `banner` | 640×360 横幅（16:9） | 网站 Banner、YouTube 封面 |
 | `story` | 420×748 竖屏（9:16） | 手机壁纸、Instagram Story |
+| `wechat-cover` | 900×383 | 微信公众号头条封面 |
+| `wechat-thumb` | 500×500 | 微信公众号方形略缩图 |
 
 ## 输出格式
 
@@ -93,4 +96,4 @@ author: js-vi-system
 - 生成 PNG/JPEG/PDF/GIF 需要本地安装 Chrome 或 Edge 浏览器，并在插件配置中设置 `browserPath`
 - 模板字段有默认值，用户未指定的字段会使用模板默认内容
 - `title` 字段支持 `\n` 换行，适合制作多行标题
-- 所有模板均支持三种配色方案和四种尺寸
+- 各模板均支持三种配色方案；通用尺寸含 `a4` / `square` / `banner` / `story`，`wechat-cover` 模板另支持 `wechat-cover` 与 `wechat-thumb`
