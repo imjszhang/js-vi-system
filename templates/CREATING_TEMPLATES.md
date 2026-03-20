@@ -54,7 +54,7 @@ templates/
 | `fields[].type` | string | `"text"`（多行）或 `"string"`（单行） |
 | `fields[].required` | boolean | 是否必填 |
 | `fields[].default` | string | 默认值，多行文本用 `\n` 分隔 |
-| `sizes` | array | 支持的尺寸：`a4` / `square` / `banner` / `story` |
+| `sizes` | array | 支持的尺寸：`a4` / `square` / `banner` / `story` / `wechat-cover` / `wechat-thumb` |
 | `schemes` | array | 支持的配色：`daylight` / `dark` / `minimal` |
 | `animation` | object | 可选，GIF 动画相关配置 |
 
@@ -169,6 +169,8 @@ export function render(content, options = {}) {
 | `square` | 640px | 640px | 正方形 |
 | `banner` | 640px | 360px | 16:9 横版 |
 | `story` | 420px | 748px | 9:16 竖版 |
+| `wechat-cover` | 900px | 383px | 微信公众号头条封面（2.35:1） |
+| `wechat-thumb` | 500px | 500px | 微信公众号次条封面 |
 
 ---
 

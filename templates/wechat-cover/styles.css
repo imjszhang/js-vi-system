@@ -1,0 +1,172 @@
+/* Poster Type: WeChat Cover */
+
+.poster-wechat-cover {
+  background-color: var(--p-bg);
+  color: var(--p-text);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 48px;
+  position: relative;
+}
+
+/* ─── Decorative elements ─── */
+
+.poster-wechat-cover .wc-deco-brace {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  opacity: 0.08;
+  color: var(--p-text);
+  pointer-events: none;
+}
+
+.poster-wechat-cover .wc-deco-line {
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.12;
+  color: var(--p-text);
+  pointer-events: none;
+}
+
+/* ─── Header: tag + issue + logo ─── */
+
+.poster-wechat-cover .wc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.poster-wechat-cover .wc-tag {
+  display: inline-block;
+  background: var(--p-tag-bg);
+  color: var(--p-tag-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.poster-wechat-cover .wc-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poster-wechat-cover .wc-issue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--p-muted);
+}
+
+.poster-wechat-cover .wc-logo {
+  width: 28px;
+  height: 28px;
+}
+
+/* ─── Body: title + subtitle ─── */
+
+.poster-wechat-cover .wc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.poster-wechat-cover .wc-title {
+  font-size: 44px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--p-text);
+}
+
+.poster-wechat-cover .wc-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--p-muted);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* ─── Footer: divider line ─── */
+
+.poster-wechat-cover .wc-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.poster-wechat-cover .wc-footer-line {
+  flex: 1;
+  height: 2px;
+  background: var(--p-border);
+}
+
+.poster-wechat-cover .wc-footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--p-muted);
+  white-space: nowrap;
+}
+
+/* ─── Thumb layout (square 500x500) ─── */
+
+.poster-wechat-cover.wc-layout-thumb {
+  padding: 36px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-deco-brace {
+  font-size: 56px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-body {
+  padding: 0 12px;
+  text-align: center;
+  align-items: center;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-title {
+  font-size: 36px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-header {
+  justify-content: center;
+  gap: 16px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-header-right {
+  display: none;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-tag {
+  font-size: 10px;
+}
+
+/* ─── Scheme-specific overrides ─── */
+
+.scheme-daylight .poster-wechat-cover .wc-title { color: #000000; }
+.scheme-dark .poster-wechat-cover .wc-title { color: #FCD228; }
+.scheme-minimal .poster-wechat-cover .wc-title { color: #000000; }
+
+.scheme-daylight .poster-wechat-cover .wc-footer-line { background: #000000; }
+.scheme-dark .poster-wechat-cover .wc-footer-line { background: #FCD228; }
+.scheme-minimal .poster-wechat-cover .wc-footer-line { background: #000000; }

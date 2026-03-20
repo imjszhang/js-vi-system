@@ -191,10 +191,10 @@ function generatePostersHTML() {
     const renderCode = readFileSync(join(templatesDir, name, 'render.js'), 'utf-8');
 
     renderBlocks.push(transformRender(renderCode, funcName));
-    templatesMapEntries.push(`${name}: ${funcName}`);
+    templatesMapEntries.push(`'${name}': ${funcName}`);
 
     const keys = meta.fields.map(f => "'" + f.key + "'").join(', ');
-    fieldMapEntries.push(`        ${name}: [${keys}]`);
+    fieldMapEntries.push(`        '${name}': [${keys}]`);
 
     const active = i === 0 ? ' active' : '';
     const label = meta.label.toUpperCase();
@@ -328,12 +328,7 @@ ${typeButtonsHTML.join('\n')}
             </div>
             <div class="ctrl-group">
                 <span class="ctrl-label">// size</span>
-                <div class="flex flex-wrap gap-1">
-                    <button class="ctrl-btn active" data-size="a4" onclick="setSize('a4')">A4</button>
-                    <button class="ctrl-btn" data-size="square" onclick="setSize('square')">SQUARE</button>
-                    <button class="ctrl-btn" data-size="banner" onclick="setSize('banner')">16:9</button>
-                    <button class="ctrl-btn" data-size="story" onclick="setSize('story')">9:16</button>
-                </div>
+                <div class="flex flex-wrap gap-1" id="size-buttons"></div>
             </div>
             <hr class="border-[#222] my-5">
             <div class="ctrl-group"><span class="ctrl-label">// content</span></div>
@@ -360,6 +355,10 @@ ${typeButtonsHTML.join('\n')}
             <div class="ctrl-group" id="field-info">
                 <label class="ctrl-label" style="color:#888">INFO</label>
                 <input class="ctrl-input" id="input-info" value="js@cyber-taoist.com" oninput="updateContent()">
+            </div>
+            <div class="ctrl-group" id="field-issue">
+                <label class="ctrl-label" style="color:#888">ISSUE</label>
+                <input class="ctrl-input" id="input-issue" value="Vol.01" oninput="updateContent()">
             </div>
             <hr class="border-[#222] my-5">
             <div class="font-mono text-[10px] text-[#333] leading-relaxed">
@@ -402,12 +401,13 @@ ${fieldMapEntries.join(',\n')}
             date: '2026.03.19',
             location: 'CYBERSPACE',
             info: 'js@cyber-taoist.com',
+            issue: 'Vol.01',
         }
     };
 
     function updateFieldVisibility() {
         var fields = FIELD_MAP[state.type] || [];
-        ['tag','title','subtitle','date','location','info'].forEach(function(f) {
+        ['tag','title','subtitle','date','location','info','issue'].forEach(function(f) {
             var el = document.getElementById('field-' + f);
             if (el) el.style.display = fields.includes(f) ? 'block' : 'none';
         });
@@ -439,6 +439,7 @@ ${fieldMapEntries.join(',\n')}
         state.content.date = document.getElementById('input-date').value;
         state.content.location = document.getElementById('input-location').value;
         state.content.info = document.getElementById('input-info').value;
+        state.content.issue = document.getElementById('input-issue').value;
         render();
     }
 
@@ -449,7 +450,7 @@ ${fieldMapEntries.join(',\n')}
         frame.style.width = dim.w + 'px';
         frame.style.height = dim.h + 'px';
         frame.className = 'poster-frame scheme-' + state.scheme;
-        poster.innerHTML = TEMPLATES[state.type](state.content);
+        poster.innerHTML = TEMPLATES[state.type](state.content, { scheme: state.scheme, size: state.size });
         scalePoster();
     }
 
@@ -463,6 +464,19 @@ ${fieldMapEntries.join(',\n')}
     }
 
     document.getElementById('nav-logo').innerHTML = LOGO_SVG;
+
+    (function buildSizeButtons() {
+        var container = document.getElementById('size-buttons');
+        Object.keys(SIZES).forEach(function(key) {
+            var btn = document.createElement('button');
+            btn.className = 'ctrl-btn' + (key === state.size ? ' active' : '');
+            btn.setAttribute('data-size', key);
+            btn.textContent = SIZES[key].label.toUpperCase();
+            btn.onclick = function() { setSize(key); };
+            container.appendChild(btn);
+        });
+    })();
+
     updateFieldVisibility();
     render();
     window.addEventListener('resize', scalePoster);

@@ -1,0 +1,15 @@
+{
+  "name": "wechat-cover",
+  "label": "WeChat Cover",
+  "fields": [
+    { "key": "title", "type": "text", "required": true, "default": "文章标题\n第二行" },
+    { "key": "subtitle", "type": "string", "default": "// 副标题或简短描述" },
+    { "key": "tag", "type": "string", "default": "TECH" },
+    { "key": "issue", "type": "string", "default": "Vol.01" }
+  ],
+  "sizes": ["wechat-cover", "wechat-thumb"],
+  "schemes": ["daylight", "dark", "minimal"],
+  "animation": {
+    "supported": false
+  }
+}

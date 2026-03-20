@@ -473,6 +473,179 @@
   opacity: 0.4;
 }
 
+/* Poster Type: WeChat Cover */
+
+.poster-wechat-cover {
+  background-color: var(--p-bg);
+  color: var(--p-text);
+  display: flex;
+  flex-direction: column;
+  padding: 32px 48px;
+  position: relative;
+}
+
+/* ─── Decorative elements ─── */
+
+.poster-wechat-cover .wc-deco-brace {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 72px;
+  line-height: 1;
+  opacity: 0.08;
+  color: var(--p-text);
+  pointer-events: none;
+}
+
+.poster-wechat-cover .wc-deco-line {
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.12;
+  color: var(--p-text);
+  pointer-events: none;
+}
+
+/* ─── Header: tag + issue + logo ─── */
+
+.poster-wechat-cover .wc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.poster-wechat-cover .wc-tag {
+  display: inline-block;
+  background: var(--p-tag-bg);
+  color: var(--p-tag-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.poster-wechat-cover .wc-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poster-wechat-cover .wc-issue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--p-muted);
+}
+
+.poster-wechat-cover .wc-logo {
+  width: 28px;
+  height: 28px;
+}
+
+/* ─── Body: title + subtitle ─── */
+
+.poster-wechat-cover .wc-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.poster-wechat-cover .wc-title {
+  font-size: 44px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--p-text);
+}
+
+.poster-wechat-cover .wc-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--p-muted);
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+/* ─── Footer: divider line ─── */
+
+.poster-wechat-cover .wc-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.poster-wechat-cover .wc-footer-line {
+  flex: 1;
+  height: 2px;
+  background: var(--p-border);
+}
+
+.poster-wechat-cover .wc-footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--p-muted);
+  white-space: nowrap;
+}
+
+/* ─── Thumb layout (square 500x500) ─── */
+
+.poster-wechat-cover.wc-layout-thumb {
+  padding: 36px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-deco-brace {
+  font-size: 56px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-body {
+  padding: 0 12px;
+  text-align: center;
+  align-items: center;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-title {
+  font-size: 36px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-header {
+  justify-content: center;
+  gap: 16px;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-header-right {
+  display: none;
+}
+
+.poster-wechat-cover.wc-layout-thumb .wc-tag {
+  font-size: 10px;
+}
+
+/* ─── Scheme-specific overrides ─── */
+
+.scheme-daylight .poster-wechat-cover .wc-title { color: #000000; }
+.scheme-dark .poster-wechat-cover .wc-title { color: #FCD228; }
+.scheme-minimal .poster-wechat-cover .wc-title { color: #000000; }
+
+.scheme-daylight .poster-wechat-cover .wc-footer-line { background: #000000; }
+.scheme-dark .poster-wechat-cover .wc-footer-line { background: #FCD228; }
+.scheme-minimal .poster-wechat-cover .wc-footer-line { background: #000000; }
+
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden font-sans">
@@ -497,6 +670,7 @@
                     <button class="ctrl-btn active" data-type="card" onclick="setType('card')">CARD</button>
                     <button class="ctrl-btn" data-type="cybertaoist" onclick="setType('cybertaoist')">CYBER-TAOIST</button>
                     <button class="ctrl-btn" data-type="terminal" onclick="setType('terminal')">TERMINAL</button>
+                    <button class="ctrl-btn" data-type="wechat-cover" onclick="setType('wechat-cover')">WECHAT COVER</button>
                 </div>
             </div>
             <div class="ctrl-group">
@@ -509,12 +683,7 @@
             </div>
             <div class="ctrl-group">
                 <span class="ctrl-label">// size</span>
-                <div class="flex flex-wrap gap-1">
-                    <button class="ctrl-btn active" data-size="a4" onclick="setSize('a4')">A4</button>
-                    <button class="ctrl-btn" data-size="square" onclick="setSize('square')">SQUARE</button>
-                    <button class="ctrl-btn" data-size="banner" onclick="setSize('banner')">16:9</button>
-                    <button class="ctrl-btn" data-size="story" onclick="setSize('story')">9:16</button>
-                </div>
+                <div class="flex flex-wrap gap-1" id="size-buttons"></div>
             </div>
             <hr class="border-[#222] my-5">
             <div class="ctrl-group"><span class="ctrl-label">// content</span></div>
@@ -543,6 +712,10 @@ INITIALIZED</textarea>
                 <label class="ctrl-label" style="color:#888">INFO</label>
                 <input class="ctrl-input" id="input-info" value="js@cyber-taoist.com" oninput="updateContent()">
             </div>
+            <div class="ctrl-group" id="field-issue">
+                <label class="ctrl-label" style="color:#888">ISSUE</label>
+                <input class="ctrl-input" id="input-issue" value="Vol.01" oninput="updateContent()">
+            </div>
             <hr class="border-[#222] my-5">
             <div class="font-mono text-[10px] text-[#333] leading-relaxed">
                 <p>ALL POSTERS FOLLOW JS VI SYSTEM RULES:</p>
@@ -567,10 +740,12 @@ INITIALIZED</textarea>
     .replace(/"/g, '&quot;');
 }
     const SIZES = {
-  a4:     { w: 595, h: 842, label: 'A4 Portrait' },
-  square: { w: 640, h: 640, label: 'Square' },
-  banner: { w: 640, h: 360, label: '16:9 Banner' },
-  story:  { w: 420, h: 748, label: '9:16 Story' },
+  a4:              { w: 595, h: 842, label: 'A4 Portrait' },
+  square:          { w: 640, h: 640, label: 'Square' },
+  banner:          { w: 640, h: 360, label: '16:9 Banner' },
+  story:           { w: 420, h: 748, label: '9:16 Story' },
+  'wechat-cover':  { w: 900, h: 383, label: 'WeChat Cover' },
+  'wechat-thumb':  { w: 500, h: 500, label: 'WeChat Thumb' },
 };
 
     // ═══ Auto-generated from templates/[name]/render.js ═══
@@ -762,12 +937,44 @@ function renderTerminal(content, options = {}) {
     </div>`;
 }
 
-    var TEMPLATES = { card: renderCard, cybertaoist: renderCybertaoist, terminal: renderTerminal };
+    function renderWechatCover(content, options = {}) {
+  const c = content;
+  const isThumb = options.size === 'wechat-thumb';
+  const layoutClass = isThumb ? 'wc-layout-thumb' : 'wc-layout-cover';
+
+  return `
+    <div class="poster poster-wechat-cover poster-grid-bg ${layoutClass}" style="width:100%;height:100%">
+      <div class="wc-deco-brace">{ }</div>
+      <div class="wc-deco-line">// WECHAT_COVER_SYS</div>
+
+      <div class="wc-header">
+        <div class="wc-tag">${esc(c.tag)}</div>
+        <div class="wc-header-right">
+          <span class="wc-issue">${esc(c.issue)}</span>
+          <div class="wc-logo">${LOGO_SVG}</div>
+        </div>
+      </div>
+
+      <div class="wc-body">
+        <div class="wc-title">${esc(c.title).replace(/\n/g, '<br>')}</div>
+        <div class="wc-subtitle">${esc(c.subtitle)}</div>
+      </div>
+
+      <div class="wc-footer">
+        <div class="wc-footer-line"></div>
+        <span class="wc-footer-text">JS_VI_SYSTEM</span>
+        <div class="wc-footer-line"></div>
+      </div>
+    </div>`;
+}
+
+    var TEMPLATES = { 'card': renderCard, 'cybertaoist': renderCybertaoist, 'terminal': renderTerminal, 'wechat-cover': renderWechatCover };
 
     var FIELD_MAP = {
-        card: ['tag', 'title', 'subtitle', 'date', 'location', 'info'],
-        cybertaoist: ['title', 'subtitle', 'date', 'location'],
-        terminal: ['title', 'subtitle', 'date', 'location', 'info']
+        'card': ['tag', 'title', 'subtitle', 'date', 'location', 'info'],
+        'cybertaoist': ['title', 'subtitle', 'date', 'location'],
+        'terminal': ['title', 'subtitle', 'date', 'location', 'info'],
+        'wechat-cover': ['title', 'subtitle', 'tag', 'issue']
     };
 
     /* ═══ Preview UI Logic ═══ */
@@ -783,12 +990,13 @@ function renderTerminal(content, options = {}) {
             date: '2026.03.19',
             location: 'CYBERSPACE',
             info: 'js@cyber-taoist.com',
+            issue: 'Vol.01',
         }
     };
 
     function updateFieldVisibility() {
         var fields = FIELD_MAP[state.type] || [];
-        ['tag','title','subtitle','date','location','info'].forEach(function(f) {
+        ['tag','title','subtitle','date','location','info','issue'].forEach(function(f) {
             var el = document.getElementById('field-' + f);
             if (el) el.style.display = fields.includes(f) ? 'block' : 'none';
         });
@@ -820,6 +1028,7 @@ function renderTerminal(content, options = {}) {
         state.content.date = document.getElementById('input-date').value;
         state.content.location = document.getElementById('input-location').value;
         state.content.info = document.getElementById('input-info').value;
+        state.content.issue = document.getElementById('input-issue').value;
         render();
     }
 
@@ -830,7 +1039,7 @@ function renderTerminal(content, options = {}) {
         frame.style.width = dim.w + 'px';
         frame.style.height = dim.h + 'px';
         frame.className = 'poster-frame scheme-' + state.scheme;
-        poster.innerHTML = TEMPLATES[state.type](state.content);
+        poster.innerHTML = TEMPLATES[state.type](state.content, { scheme: state.scheme, size: state.size });
         scalePoster();
     }
 
@@ -844,6 +1053,19 @@ function renderTerminal(content, options = {}) {
     }
 
     document.getElementById('nav-logo').innerHTML = LOGO_SVG;
+
+    (function buildSizeButtons() {
+        var container = document.getElementById('size-buttons');
+        Object.keys(SIZES).forEach(function(key) {
+            var btn = document.createElement('button');
+            btn.className = 'ctrl-btn' + (key === state.size ? ' active' : '');
+            btn.setAttribute('data-size', key);
+            btn.textContent = SIZES[key].label.toUpperCase();
+            btn.onclick = function() { setSize(key); };
+            container.appendChild(btn);
+        });
+    })();
+
     updateFieldVisibility();
     render();
     window.addEventListener('resize', scalePoster);
