@@ -152,6 +152,7 @@ When performing an operation, always prefer the highest-priority method availabl
 | List templates | `vi_templates_list` | `openclaw vi templates` | `node bin/js-vi.js templates` |
 | Get design tokens | `vi_tokens_get` | — | Read `tokens/*.json` directly |
 | Get brand info | `vi_brand_info` | — | Read `brand/*.md` / `voice/*.md` directly |
+| Scaffold plugin repo | — | `openclaw vi init <dir> -t <name>` | `node bin/js-vi.js init <dir> -t <name>` |
 | Build CSS/Tailwind | — | `openclaw vi build` | `node bin/js-vi.js build` or `npm run build` |
 | Preview brand manual | Browse `http://<host>/plugins/js-vi/` | `npm run preview` | Open `preview/index.html` directly |
 | Change defaults | Edit `~/.openclaw/openclaw.json` plugin config | Pass CLI flags | N/A |
@@ -226,6 +227,9 @@ openclaw vi poster -t <name> [options]         Generate a poster
   --config <path>                                Batch config JSON file
   --browser-path <path>                          Chrome/Edge executable path
 openclaw vi build                              Regenerate CSS and Tailwind preset from tokens
+openclaw vi init [directory] [options]         Scaffold a template plugin repository
+  -t, --template <name>                          Create a template skeleton
+  --vi-system-path <path>                        Path to js-vi-system (auto-detected)
 ```
 
 ### Standalone CLI Mode
@@ -234,6 +238,9 @@ openclaw vi build                              Regenerate CSS and Tailwind prese
 node bin/js-vi.js poster -t <name> [options]   Generate a poster (same options as above)
 node bin/js-vi.js templates                    List available templates
 node bin/js-vi.js build                        Regenerate CSS and Tailwind preset
+node bin/js-vi.js init [directory] [options]   Scaffold a template plugin repository
+  -t, --template <name>                          Create a template skeleton
+  --vi-system-path <path>                        Path to js-vi-system (auto-detected)
 ```
 
 ## Web UI
@@ -282,7 +289,8 @@ js-vi-system/
 │   ├── commands/
 │   │   ├── poster.js                     ← Poster generation command
 │   │   ├── templates.js                  ← Template listing command
-│   │   └── build.js                      ← Build command
+│   │   ├── build.js                      ← Build command
+│   │   └── init.js                       ← Plugin repo scaffolding command
 │   └── utils/
 │       └── browser.js                    ← Puppeteer browser utilities
 ├── core/

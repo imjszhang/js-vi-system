@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file. Version numbers follow the package `version` field in `package.json`.
 
+## [1.2.0] - 2026-03-25
+
+### Added
+
+- **`js-vi init` command** — scaffolds an external template plugin repository with `package.json` (auto-resolved `js-vi-system` dependency path), `.gitignore`, sample batch config, and optional template skeleton (`meta.json` + `render.js` + `styles.css`). Usage: `js-vi init <dir> --template <name>`.
+
 ## [1.1.1] - 2026-03-20
 
 ### Added

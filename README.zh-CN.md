@@ -49,11 +49,24 @@ voice/           调性、风格、语言规范
 preview/         交互式品牌手册（index.html）与海报画廊（posters.html）
 build/           Token → CSS/JS 生成脚本
 bin/             CLI 入口（js-vi）
-cli/             Commander 命令（poster、templates、build）
+cli/             Commander 命令（poster、templates、build、init）
 core/            模板引擎、渲染与配置
 templates/       海报模板（如 terminal、card、cybertaoist、wechat-cover）
 renderers/       HTML / 位图 / PDF / SVG / GIF 等输出适配
 ```
+
+## 创建模板插件仓库
+
+使用 `js-vi init` 一键脚手架化外部模板插件仓库：
+
+```bash
+npx js-vi init my-posters --template event-poster
+cd my-posters
+npm install
+npm run poster -- --template event-poster -f html -o output/test.html
+```
+
+自动生成 `package.json`（依赖路径已配好）、`.gitignore`、示例批处理配置和可运行的模板骨架。详细模板开发指南见 [templates/CREATING_TEMPLATES.md](templates/CREATING_TEMPLATES.md)。
 
 ## 品牌色
 

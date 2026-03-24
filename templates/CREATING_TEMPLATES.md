@@ -214,6 +214,45 @@ js-vi poster --template my-template --templates-dir ./my-templates -f png -o out
 
 外部模板目录的结构与内置 `templates/` 目录相同。
 
+### 快速脚手架
+
+使用 `js-vi init` 可以一键创建外部模板插件仓库：
+
+```bash
+# 创建插件仓库并生成第一个模板骨架
+js-vi init my-posters --template event-poster
+cd my-posters
+npm install
+
+# 生成海报
+npm run poster -- --template event-poster -f html -o output/test.html
+
+# 使用批处理配置
+npm run poster -- --config configs/example.json
+```
+
+生成的目录结构：
+
+```
+my-posters/
+├── package.json              # 已配置 js-vi-system 依赖
+├── .gitignore
+├── configs/
+│   └── example.json          # 示例批处理配置
+└── event-poster/
+    ├── meta.json
+    ├── render.js
+    └── styles.css
+```
+
+命令参数：
+
+| 参数 | 说明 |
+|------|------|
+| `[directory]` | 目标目录，默认当前目录 |
+| `-t, --template <name>` | 同时创建模板骨架 |
+| `--vi-system-path <path>` | 手动指定 js-vi-system 路径（默认自动推断） |
+
 ---
 
 ## 设计规范提醒

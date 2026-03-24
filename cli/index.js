@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { registerPosterCommand } from './commands/poster.js';
 import { registerTemplatesCommand } from './commands/templates.js';
 import { registerBuildCommand } from './commands/build.js';
+import { registerInitCommand } from './commands/init.js';
 
 const program = new Command();
 
@@ -13,5 +14,6 @@ program
 registerPosterCommand(program);
 registerTemplatesCommand(program);
 registerBuildCommand(program);
+registerInitCommand(program);
 
 program.parse();

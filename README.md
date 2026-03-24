@@ -49,11 +49,24 @@ voice/           Tone, style, and language guidelines
 preview/         Interactive brand manual (index.html) and poster gallery (posters.html)
 build/           Token → CSS/JS generation script
 bin/             CLI entry (js-vi)
-cli/             Commander commands (poster, templates, build)
+cli/             Commander commands (poster, templates, build, init)
 core/            Template engine, renderer wiring, config
 templates/       Poster templates (e.g. terminal, card, cybertaoist, wechat-cover)
 renderers/       HTML, image, PDF, SVG, GIF output adapters
 ```
+
+## Create a Template Plugin
+
+Use `js-vi init` to scaffold an external template plugin repository:
+
+```bash
+npx js-vi init my-posters --template event-poster
+cd my-posters
+npm install
+npm run poster -- --template event-poster -f html -o output/test.html
+```
+
+This generates a ready-to-use repo with `package.json` (auto-linked to js-vi-system), `.gitignore`, a sample batch config, and a working template skeleton. See [templates/CREATING_TEMPLATES.md](templates/CREATING_TEMPLATES.md) for the full template authoring guide.
 
 ## Brand Colors
 
