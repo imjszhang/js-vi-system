@@ -2,7 +2,7 @@ import { resolve, join } from 'path';
 import pc from 'picocolors';
 import { readFileSync } from 'fs';
 import { renderToHTML, findTemplate, listTemplates, setExtraTemplatesDirs } from '../../core/template-engine.js';
-import { validateOptions, mergeContentWithDefaults, SIZES } from '../../core/config.js';
+import { validateOptions, mergeContentWithDefaults, validateTextLayout, SIZES } from '../../core/config.js';
 import { renderOutput } from '../../core/renderer-factory.js';
 
 async function handleSinglePoster(opts) {
@@ -25,13 +25,23 @@ async function handleSinglePoster(opts) {
     tag: opts.tag,
   }, meta);
 
+  const sizeKey = opts.size || 'a4';
+  validateTextLayout(content, meta, sizeKey, { strict: opts.strict });
+
   const animated = opts.format === 'gif';
-  const options = { scheme: opts.scheme, size: opts.size, animated };
+  const options = {
+    scheme: opts.scheme,
+    size: sizeKey,
+    animated,
+    autoFit: opts.autoFit,
+    balanced: opts.balanced,
+    shrinkWrap: opts.shrinkWrap,
+  };
   const html = await renderToHTML(opts.template, content, options);
 
   const ext = opts.format === 'jpg' ? 'jpeg' : opts.format;
   const outputPath = opts.output || join('poster', `poster-${opts.template}.${ext}`);
-  const dim = SIZES[opts.size] || SIZES.a4;
+  const dim = SIZES[sizeKey] || SIZES.a4;
 
   const animMeta = meta.animation || {};
   const result = await renderOutput(html, opts.format, resolve(outputPath), {
@@ -61,14 +71,26 @@ async function handleConfigFile(configPath, cliOpts = {}) {
     }
 
     const content = mergeContentWithDefaults(entry.content || {}, meta);
-    const dim = SIZES[entry.size || 'a4'] || SIZES.a4;
+    const sizeKey = entry.size || 'a4';
+    const dim = SIZES[sizeKey] || SIZES.a4;
     const animMeta = meta.animation || {};
+
+    validateTextLayout(content, meta, sizeKey, { strict: cliOpts.strict });
 
     const outputs = entry.outputs || [{ format: 'html', path: join('poster', `poster-${entry.template}.html`) }];
     for (const out of outputs) {
       try {
         const animated = out.format === 'gif';
-        const options = { scheme: entry.scheme || 'dark', size: entry.size || 'a4', animated };
+        const entryLayout = entry.layout || {};
+        const options = {
+          scheme: entry.scheme || 'dark',
+          size: sizeKey,
+          animated,
+          autoFit: entryLayout.autoFit ?? cliOpts.autoFit,
+          balanced: entryLayout.balanced ?? cliOpts.balanced,
+          shrinkWrap: cliOpts.shrinkWrap,
+          targetLines: entryLayout.targetLines,
+        };
         const html = await renderToHTML(entry.template, content, options);
         const dpr =
           out.deviceScaleFactor ??
@@ -117,6 +139,10 @@ export function registerPosterCommand(program) {
       parseFloat,
     )
     .option('--templates-dir <path>', 'Additional templates directory')
+    .option('--auto-fit', 'Auto-fit title font size to available space')
+    .option('--balanced', 'Balance title line widths for even wrapping')
+    .option('--shrink-wrap', 'Shrink canvas width to fit title content')
+    .option('--strict', 'Abort on text overflow instead of warning')
     .action(async (opts) => {
       try {
         if (opts.templatesDir) {

@@ -1,7 +1,7 @@
 ---
 name: js-vi-system
 description: JS Brand Visual Identity System — Neo-Brutalism + Cyberpunk design tokens, poster generator, and brand guidelines.
-version: 1.1.1
+version: 1.3.0
 metadata:
   openclaw:
     emoji: "\U0001F3A8"
@@ -152,6 +152,10 @@ When performing an operation, always prefer the highest-priority method availabl
 | List templates | `vi_templates_list` | `openclaw vi templates` | `node bin/js-vi.js templates` |
 | Get design tokens | `vi_tokens_get` | — | Read `tokens/*.json` directly |
 | Get brand info | `vi_brand_info` | — | Read `brand/*.md` / `voice/*.md` directly |
+| Measure text layout | — | `openclaw vi measure -t <name>` | `node bin/js-vi.js measure -t <name>` |
+| Scan typeset across sizes | — | `openclaw vi typeset -t <name>` | `node bin/js-vi.js typeset -t <name>` |
+| Find best size | — | `openclaw vi best-size -t <name>` | `node bin/js-vi.js best-size -t <name>` |
+| Validate text overflow | — | `openclaw vi lint --config <path>` | `node bin/js-vi.js lint --config <path>` |
 | Scaffold plugin repo | — | `openclaw vi init <dir> -t <name>` | `node bin/js-vi.js init <dir> -t <name>` |
 | Build CSS/Tailwind | — | `openclaw vi build` | `node bin/js-vi.js build` or `npm run build` |
 | Preview brand manual | Browse `http://<host>/plugins/js-vi/` | `npm run preview` | Open `preview/index.html` directly |
@@ -187,6 +191,8 @@ Design Tokens (JSON)
 Templates (render.js + meta.json + styles.css)
        ↓
   Template Engine → renderToHTML()
+       ↓
+  Text Measure (Pretext) → fitFontSize / balanceText / measureField
        ↓
   Renderer Factory → renderOutput()
        ↓
@@ -226,6 +232,23 @@ openclaw vi poster -t <name> [options]         Generate a poster
   --tag <text>                                   Tag text
   --config <path>                                Batch config JSON file
   --browser-path <path>                          Chrome/Edge executable path
+  --auto-fit                                     Auto-fit title font size to available space
+  --balanced                                     Balance title line widths for even wrapping
+  --shrink-wrap                                  Shrink canvas width to fit title content
+  --strict                                       Abort on text overflow instead of warning
+openclaw vi measure -t <name> [options]       Measure text layout without rendering
+  --size <size>                                  Poster size
+  --title <text>                                 Title text
+  --subtitle <text>                              Subtitle text
+openclaw vi typeset -t <name> [options]       Scan layout across all sizes
+  --title <text>                                 Title text
+  --subtitle <text>                              Subtitle text
+openclaw vi best-size -t <name> [options]     Recommend best poster size
+  --title <text>                                 Title text
+openclaw vi lint [options]                    Batch-validate text overflow
+  --config <path>                                Config JSON to validate
+  --strict                                       Exit 1 on any warning
+  --json                                         Output results as JSON
 openclaw vi build                              Regenerate CSS and Tailwind preset from tokens
 openclaw vi init [directory] [options]         Scaffold a template plugin repository
   -t, --template <name>                          Create a template skeleton
@@ -237,6 +260,10 @@ openclaw vi init [directory] [options]         Scaffold a template plugin reposi
 ```
 node bin/js-vi.js poster -t <name> [options]   Generate a poster (same options as above)
 node bin/js-vi.js templates                    List available templates
+node bin/js-vi.js measure -t <name> [options]  Measure text layout without rendering
+node bin/js-vi.js typeset -t <name> [options]  Scan layout across all sizes
+node bin/js-vi.js best-size -t <name> [options] Recommend best poster size
+node bin/js-vi.js lint --config <path>         Batch-validate text overflow
 node bin/js-vi.js build                        Regenerate CSS and Tailwind preset
 node bin/js-vi.js init [directory] [options]   Scaffold a template plugin repository
   -t, --template <name>                          Create a template skeleton
@@ -289,12 +316,17 @@ js-vi-system/
 │   ├── commands/
 │   │   ├── poster.js                     ← Poster generation command
 │   │   ├── templates.js                  ← Template listing command
+│   │   ├── measure.js                    ← Text measurement command
+│   │   ├── typeset.js                    ← Cross-size typeset scan command
+│   │   ├── best-size.js                  ← Best size recommendation command
+│   │   ├── lint.js                       ← Batch text overflow validation command
 │   │   ├── build.js                      ← Build command
 │   │   └── init.js                       ← Plugin repo scaffolding command
 │   └── utils/
 │       └── browser.js                    ← Puppeteer browser utilities
 ├── core/
 │   ├── config.js                         ← Option validation, content merging
+│   ├── text-measure.js                   ← Pretext text measurement (measureText, fitFontSize, balanceText, etc.)
 │   ├── renderer-factory.js               ← Multi-format render dispatch
 │   └── template-engine.js                ← Template discovery, loading, HTML rendering
 ├── css/
@@ -332,7 +364,8 @@ js-vi-system/
 │   └── tone-and-style.md                 ← Tone and style guidelines
 ├── preview/
 │   ├── index.html                        ← Interactive brand manual
-│   └── posters.html                      ← Poster gallery (generated)
+│   ├── posters.html                      ← Poster gallery (generated)
+│   └── typeset.html                      ← Interactive typeset preview (Pretext)
 ├── assets/
 │   └── logo/                             ← Brand logo files
 └── openclaw-plugin/

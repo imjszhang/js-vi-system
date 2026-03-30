@@ -11,5 +11,28 @@
   "schemes": ["daylight", "dark", "minimal"],
   "animation": {
     "supported": false
+  },
+  "textLayout": {
+    "title": {
+      "font": "900 44px Space Grotesk",
+      "lineHeight": 48.4,
+      "maxWidth": 756,
+      "maxHeight": 200,
+      "transform": "uppercase",
+      "sizeOverrides": {
+        "wechat-thumb": {
+          "font": "900 36px Space Grotesk",
+          "lineHeight": 39.6,
+          "maxWidth": 404,
+          "maxHeight": 300
+        }
+      }
+    },
+    "subtitle": {
+      "font": "13px JetBrains Mono",
+      "lineHeight": 19.5,
+      "maxWidth": 756,
+      "maxHeight": 60
+    }
   }
 }

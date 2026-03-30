@@ -33,6 +33,15 @@ After `npm install` in a clone of this repo, you can run:
 ```bash
 npm run poster -- --help          # or: npx js-vi poster --help
 node bin/js-vi.js templates       # list poster templates
+
+# Text layout tools
+node bin/js-vi.js measure -t terminal --title "HELLO WORLD"
+node bin/js-vi.js typeset -t terminal --title "LONG TITLE HERE"
+node bin/js-vi.js best-size -t terminal --title "SOME TITLE"
+node bin/js-vi.js lint --config posters.json
+
+# Auto-fit and balanced text
+node bin/js-vi.js poster -t terminal --title "LONG TITLE" --auto-fit --balanced
 ```
 
 The package exports `js-vi-system/templates` (template engine) and `js-vi-system/templates/_shared/*` for shared template assets.
@@ -49,8 +58,8 @@ voice/           Tone, style, and language guidelines
 preview/         Interactive brand manual (index.html) and poster gallery (posters.html)
 build/           Token → CSS/JS generation script
 bin/             CLI entry (js-vi)
-cli/             Commander commands (poster, templates, build, init)
-core/            Template engine, renderer wiring, config
+cli/             Commander commands (poster, templates, build, init, measure, typeset, best-size, lint)
+core/            Template engine, renderer wiring, config, text measurement
 templates/       Poster templates (e.g. terminal, card, cybertaoist, wechat-cover)
 renderers/       HTML, image, PDF, SVG, GIF output adapters
 ```
@@ -67,6 +76,26 @@ npm run poster -- --template event-poster -f html -o output/test.html
 ```
 
 This generates a ready-to-use repo with `package.json` (auto-linked to js-vi-system), `.gitignore`, a sample batch config, and a working template skeleton. See [templates/CREATING_TEMPLATES.md](templates/CREATING_TEMPLATES.md) for the full template authoring guide.
+
+## Text Layout
+
+The poster generator integrates the [Pretext](https://github.com/chenglou/pretext) text engine for accurate server-side text measurement. This enables:
+
+- **`--auto-fit`** — automatically adjust title font size to fill the available space
+- **`--balanced`** — equalize line widths for visually balanced wrapping
+- **`--shrink-wrap`** — reduce canvas width to match actual title width
+- **`--strict`** — abort if text overflows the layout constraints
+
+Diagnostic commands:
+
+| Command | Description |
+|---------|-------------|
+| `js-vi measure` | Measure text dimensions for a specific template/size |
+| `js-vi typeset` | Scan all sizes and suggest auto-fit values |
+| `js-vi best-size` | Recommend the best size for given content |
+| `js-vi lint` | Batch-validate a config file for text overflow (CI-friendly) |
+
+Each template's `meta.json` defines `textLayout` constraints (font, lineHeight, maxWidth, maxHeight) that these tools use for measurement.
 
 ## Brand Colors
 

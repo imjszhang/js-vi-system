@@ -15,5 +15,25 @@
     "duration": 3000,
     "defaultFps": 10,
     "description": "Typing effect with stagger entrance and cursor blink"
+  },
+  "textLayout": {
+    "title": {
+      "font": "800 56px JetBrains Mono",
+      "lineHeight": 58.8,
+      "maxWidth": 499,
+      "maxHeight": 400,
+      "transform": "uppercase",
+      "sizeOverrides": {
+        "square":  { "maxWidth": 544, "maxHeight": 350 },
+        "banner":  { "maxWidth": 544, "maxHeight": 180 },
+        "story":   { "maxWidth": 324, "maxHeight": 450 }
+      }
+    },
+    "subtitle": {
+      "font": "13px JetBrains Mono",
+      "lineHeight": 23.4,
+      "maxWidth": 499,
+      "maxHeight": 70
+    }
   }
 }

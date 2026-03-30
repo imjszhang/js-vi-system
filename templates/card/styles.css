@@ -44,13 +44,14 @@
 }
 
 .poster-card .card-title {
-  font-size: 48px;
+  font-size: var(--auto-title-size, 48px);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: #000000;
   margin-bottom: 20px;
+  max-width: var(--balanced-title-width, none);
 }
 
 .poster-card .card-subtitle {

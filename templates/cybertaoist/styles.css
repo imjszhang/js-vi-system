@@ -80,11 +80,12 @@
 }
 
 .poster-cybertaoist .ct-title {
-  font-size: 54px;
+  font-size: var(--auto-title-size, 54px);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1.0;
   letter-spacing: -0.02em;
+  max-width: var(--balanced-title-width, none);
 }
 
 .poster-cybertaoist .ct-code-comment {

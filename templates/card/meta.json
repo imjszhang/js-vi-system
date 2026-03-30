@@ -16,5 +16,25 @@
     "duration": 2500,
     "defaultFps": 10,
     "description": "Card slide-up entrance with stagger elements"
+  },
+  "textLayout": {
+    "title": {
+      "font": "900 48px Space Grotesk",
+      "lineHeight": 50.4,
+      "maxWidth": 419,
+      "maxHeight": 350,
+      "transform": "uppercase",
+      "sizeOverrides": {
+        "square":  { "maxWidth": 464, "maxHeight": 300 },
+        "banner":  { "maxWidth": 464, "maxHeight": 140 },
+        "story":   { "maxWidth": 244, "maxHeight": 400 }
+      }
+    },
+    "subtitle": {
+      "font": "14px JetBrains Mono",
+      "lineHeight": 22.4,
+      "maxWidth": 419,
+      "maxHeight": 70
+    }
   }
 }

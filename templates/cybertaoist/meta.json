@@ -14,5 +14,25 @@
     "duration": 3000,
     "defaultFps": 10,
     "description": "Logo ring pulse with text slide-up entrance"
+  },
+  "textLayout": {
+    "title": {
+      "font": "900 54px Space Grotesk",
+      "lineHeight": 54,
+      "maxWidth": 499,
+      "maxHeight": 350,
+      "transform": "uppercase",
+      "sizeOverrides": {
+        "square":  { "maxWidth": 544, "maxHeight": 300 },
+        "banner":  { "maxWidth": 544, "maxHeight": 160 },
+        "story":   { "maxWidth": 324, "maxHeight": 400 }
+      }
+    },
+    "subtitle": {
+      "font": "13px JetBrains Mono",
+      "lineHeight": 23.4,
+      "maxWidth": 499,
+      "maxHeight": 50
+    }
   }
 }

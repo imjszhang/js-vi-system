@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file. Version numbers follow the package `version` field in `package.json`.
 
+## [1.3.0] - 2026-03-30
+
+### Added
+
+- **Pretext text engine integration** — `@chenglou/pretext` + `@napi-rs/canvas` for accurate server-side text measurement without DOM.
+- **`core/text-measure.js`** — new module exporting `measureText`, `fitFontSize`, `balanceText`, `checkOverflow`, `measureField`, `shrinkWrapWidth`, `fitToLines`.
+- **`js-vi measure` command** — measure text layout for a template without rendering; shows line count, height, fill ratio, and overflow status per field.
+- **`js-vi typeset` command** — scan text layout across all supported sizes for a template; suggests `--auto-fit` font sizes.
+- **`js-vi best-size` command** — recommend the best poster size for given content based on fill ratio.
+- **`js-vi lint` command** — batch-validate text overflow for all posters in a config JSON; supports `--strict` (exit 1 on warnings) and `--json` output for CI integration.
+- **`poster --auto-fit`** — auto-fit title font size to available space via binary-search.
+- **`poster --balanced`** — balance title line widths for even wrapping.
+- **`poster --shrink-wrap`** — shrink canvas width to fit actual title content width.
+- **`poster --strict`** — abort on text overflow instead of warning.
+- **Config `layout.targetLines`** — in batch config JSON, set a target line count to find the exact font size that produces N lines.
+- **`init` enhancement** — scaffolded templates now include `textLayout` constraints in `meta.json` and CSS variable hooks (`--auto-title-size`, `--balanced-title-width`) in `styles.css`.
+- **`preview/typeset.html`** — interactive browser-side typeset preview with real-time line count, height, fill ratio, and per-line width bar chart; linked from brand manual navigation.
+- **Template `textLayout` metadata** — all 4 built-in templates (`terminal`, `cybertaoist`, `card`, `wechat-cover`) now define `textLayout` constraints with `sizeOverrides`.
+
 ## [1.2.0] - 2026-03-25
 
 ### Added

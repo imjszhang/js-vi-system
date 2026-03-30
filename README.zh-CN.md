@@ -33,6 +33,15 @@ export default {
 ```bash
 npm run poster -- --help          # 或：npx js-vi poster --help
 node bin/js-vi.js templates       # 列出海报模板
+
+# 文本排版工具
+node bin/js-vi.js measure -t terminal --title "HELLO WORLD"
+node bin/js-vi.js typeset -t terminal --title "长标题文本"
+node bin/js-vi.js best-size -t terminal --title "某个标题"
+node bin/js-vi.js lint --config posters.json
+
+# 自动适配与均衡排版
+node bin/js-vi.js poster -t terminal --title "长标题" --auto-fit --balanced
 ```
 
 npm 包导出 `js-vi-system/templates`（模板引擎）及 `js-vi-system/templates/_shared/*`（共享模板静态资源子路径）。
@@ -49,8 +58,8 @@ voice/           调性、风格、语言规范
 preview/         交互式品牌手册（index.html）与海报画廊（posters.html）
 build/           Token → CSS/JS 生成脚本
 bin/             CLI 入口（js-vi）
-cli/             Commander 命令（poster、templates、build、init）
-core/            模板引擎、渲染与配置
+cli/             Commander 命令（poster、templates、build、init、measure、typeset、best-size、lint）
+core/            模板引擎、渲染与配置、文本测量
 templates/       海报模板（如 terminal、card、cybertaoist、wechat-cover）
 renderers/       HTML / 位图 / PDF / SVG / GIF 等输出适配
 ```
@@ -67,6 +76,26 @@ npm run poster -- --template event-poster -f html -o output/test.html
 ```
 
 自动生成 `package.json`（依赖路径已配好）、`.gitignore`、示例批处理配置和可运行的模板骨架。详细模板开发指南见 [templates/CREATING_TEMPLATES.md](templates/CREATING_TEMPLATES.md)。
+
+## 文本排版
+
+海报生成器集成了 [Pretext](https://github.com/chenglou/pretext) 文本引擎，实现精确的服务端文本测量：
+
+- **`--auto-fit`** — 自动调整标题字号以填满可用空间
+- **`--balanced`** — 均衡行宽，实现视觉平衡的折行效果
+- **`--shrink-wrap`** — 将画布宽度收窄至标题实际宽度
+- **`--strict`** — 文本溢出时中止而非仅告警
+
+排版诊断命令：
+
+| 命令 | 说明 |
+|------|------|
+| `js-vi measure` | 测量指定模板/尺寸下的文本排版数据 |
+| `js-vi typeset` | 跨尺寸扫描并建议 auto-fit 字号 |
+| `js-vi best-size` | 根据内容推荐最佳海报尺寸 |
+| `js-vi lint` | 批量校验配置文件中的文本溢出（适用于 CI） |
+
+每个模板的 `meta.json` 定义了 `textLayout` 约束（font、lineHeight、maxWidth、maxHeight），供这些工具使用。
 
 ## 品牌色
 

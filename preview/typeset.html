@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-scheme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS VI — Typeset Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #000; --fg: #FCD228; --surface: #111;
+            --border: #FCD228; --muted: #666; --text: #ccc;
+        }
+
+        body {
+            background: var(--bg); color: var(--fg);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh; padding: 24px;
+        }
+
+        .header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 32px; padding-bottom: 16px;
+            border-bottom: 3px solid var(--border);
+        }
+        .header h1 {
+            font-size: 24px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        .header a {
+            font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            color: var(--muted); text-decoration: none;
+        }
+        .header a:hover { color: var(--fg); }
+
+        .controls {
+            display: grid; grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px; margin-bottom: 32px;
+        }
+        @media (max-width: 800px) { .controls { grid-template-columns: 1fr; } }
+
+        label {
+            display: block; font-family: 'JetBrains Mono', monospace;
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; margin-bottom: 6px; color: var(--muted);
+        }
+
+        select, input, textarea {
+            width: 100%; padding: 10px 12px;
+            background: var(--surface); color: var(--fg);
+            border: 3px solid var(--border); font-family: 'JetBrains Mono', monospace;
+            font-size: 14px; outline: none;
+        }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .slider-group { display: flex; align-items: center; gap: 12px; }
+        .slider-group input[type="range"] {
+            flex: 1; height: 4px; -webkit-appearance: none;
+            background: var(--border); border: none; padding: 0;
+        }
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 16px; height: 16px;
+            background: var(--fg); border: 2px solid #000; cursor: pointer;
+        }
+        .slider-val {
+            font-family: 'JetBrains Mono', monospace; font-size: 13px;
+            min-width: 50px; text-align: right;
+        }
+
+        .results {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 24px; margin-bottom: 32px;
+        }
+        @media (max-width: 800px) { .results { grid-template-columns: 1fr; } }
+
+        .stat-card {
+            background: var(--surface); border: 3px solid var(--border);
+            padding: 20px;
+        }
+        .stat-card h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+            color: var(--muted); text-transform: uppercase; margin-bottom: 12px;
+        }
+        .stat-value {
+            font-size: 36px; font-weight: 800;
+        }
+        .stat-sub {
+            font-family: 'JetBrains Mono', monospace; font-size: 12px;
+            color: var(--muted); margin-top: 4px;
+        }
+
+        .bar-chart { margin-top: 32px; }
+        .bar-chart h2 {
+            font-size: 16px; font-weight: 700; text-transform: uppercase;
+            margin-bottom: 16px; padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        .bar-row {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+        }
+        .bar-label { min-width: 50px; color: var(--muted); text-align: right; }
+        .bar-track { flex: 1; height: 20px; background: var(--surface); border: 1px solid #333; position: relative; }
+        .bar-fill { height: 100%; background: var(--fg); transition: width 0.2s; }
+        .bar-val { min-width: 60px; }
+
+        .status-ok { color: #4ade80; }
+        .status-overflow { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Typeset Preview</h1>
+        <a href="index.html">← Brand Guide</a>
+        <a href="posters.html">Posters</a>
+    </div>
+
+    <div class="controls">
+        <div>
+            <label>Template</label>
+            <select id="templateSelect"></select>
+        </div>
+        <div>
+            <label>Size</label>
+            <select id="sizeSelect"></select>
+        </div>
+        <div>
+            <label>Title Text</label>
+            <textarea id="titleInput"></textarea>
+        </div>
+    </div>
+
+    <div>
+        <label>Max Width Override</label>
+        <div class="slider-group">
+            <input type="range" id="widthSlider" min="100" max="900" value="499">
+            <span class="slider-val" id="widthVal">499px</span>
+        </div>
+    </div>
+
+    <div class="results" style="margin-top:24px">
+        <div class="stat-card">
+            <h3>Lines</h3>
+            <div class="stat-value" id="statLines">—</div>
+            <div class="stat-sub" id="statLinesMax"></div>
+        </div>
+        <div class="stat-card">
+            <h3>Height</h3>
+            <div class="stat-value" id="statHeight">—</div>
+            <div class="stat-sub" id="statHeightMax"></div>
+        </div>
+        <div class="stat-card">
+            <h3>Fill Ratio</h3>
+            <div class="stat-value" id="statFill">—</div>
+            <div class="stat-sub" id="statStatus"></div>
+        </div>
+        <div class="stat-card">
+            <h3>Font</h3>
+            <div class="stat-value" id="statFont" style="font-size:16px;margin-top:8px">—</div>
+        </div>
+    </div>
+
+    <div class="bar-chart">
+        <h2>Line Widths</h2>
+        <div id="barContainer"></div>
+    </div>
+
+    <script type="module">
+        import { prepare, prepareWithSegments, layout, walkLineRanges, clearCache } from 'https://esm.sh/@chenglou/pretext@1';
+
+        const TEMPLATES = {
+            terminal: {
+                name: 'terminal', label: 'Terminal',
+                sizes: ['a4','square','banner','story'],
+                textLayout: {
+                    title: {
+                        font: '800 56px JetBrains Mono', lineHeight: 58.8,
+                        maxWidth: 499, maxHeight: 400, transform: 'uppercase',
+                        sizeOverrides: {
+                            square: { maxWidth: 544, maxHeight: 350 },
+                            banner: { maxWidth: 544, maxHeight: 180 },
+                            story: { maxWidth: 324, maxHeight: 450 },
+                        }
+                    }
+                }
+            },
+            cybertaoist: {
+                name: 'cybertaoist', label: 'Cyber-Taoist',
+                sizes: ['a4','square','banner','story'],
+                textLayout: {
+                    title: {
+                        font: '900 54px Space Grotesk', lineHeight: 54,
+                        maxWidth: 499, maxHeight: 350, transform: 'uppercase',
+                        sizeOverrides: {
+                            square: { maxWidth: 544, maxHeight: 300 },
+                            banner: { maxWidth: 544, maxHeight: 160 },
+                            story: { maxWidth: 324, maxHeight: 400 },
+                        }
+                    }
+                }
+            },
+            card: {
+                name: 'card', label: 'Card',
+                sizes: ['a4','square','banner','story'],
+                textLayout: {
+                    title: {
+                        font: '900 48px Space Grotesk', lineHeight: 50.4,
+                        maxWidth: 419, maxHeight: 350, transform: 'uppercase',
+                        sizeOverrides: {
+                            square: { maxWidth: 464, maxHeight: 300 },
+                            banner: { maxWidth: 464, maxHeight: 140 },
+                            story: { maxWidth: 244, maxHeight: 400 },
+                        }
+                    }
+                }
+            },
+            'wechat-cover': {
+                name: 'wechat-cover', label: 'WeChat Cover',
+                sizes: ['wechat-cover','wechat-thumb'],
+                textLayout: {
+                    title: {
+                        font: '900 44px Space Grotesk', lineHeight: 48.4,
+                        maxWidth: 756, maxHeight: 200, transform: 'uppercase',
+                        sizeOverrides: {
+                            'wechat-thumb': {
+                                font: '900 36px Space Grotesk', lineHeight: 39.6,
+                                maxWidth: 404, maxHeight: 300,
+                            }
+                        }
+                    }
+                }
+            },
+        };
+
+        const SIZES = {
+            a4: { w: 595, h: 842 }, square: { w: 640, h: 640 },
+            banner: { w: 640, h: 360 }, story: { w: 420, h: 748 },
+            'wechat-cover': { w: 900, h: 383 }, 'wechat-thumb': { w: 500, h: 500 },
+        };
+
+        const templateSelect = document.getElementById('templateSelect');
+        const sizeSelect = document.getElementById('sizeSelect');
+        const titleInput = document.getElementById('titleInput');
+        const widthSlider = document.getElementById('widthSlider');
+        const widthVal = document.getElementById('widthVal');
+
+        for (const [key, tpl] of Object.entries(TEMPLATES)) {
+            const opt = document.createElement('option');
+            opt.value = key; opt.textContent = tpl.label;
+            templateSelect.appendChild(opt);
+        }
+
+        function populateSizes() {
+            const tpl = TEMPLATES[templateSelect.value];
+            sizeSelect.innerHTML = '';
+            for (const s of tpl.sizes) {
+                const opt = document.createElement('option');
+                opt.value = s;
+                const dim = SIZES[s];
+                opt.textContent = `${s} (${dim.w}x${dim.h})`;
+                sizeSelect.appendChild(opt);
+            }
+            updateConstraintSlider();
+        }
+
+        function updateConstraintSlider() {
+            const tpl = TEMPLATES[templateSelect.value];
+            const sizeKey = sizeSelect.value;
+            const c = tpl.textLayout.title;
+            const so = c.sizeOverrides?.[sizeKey];
+            const mw = so?.maxWidth || c.maxWidth;
+            widthSlider.value = mw;
+            widthVal.textContent = mw + 'px';
+        }
+
+        function doMeasure() {
+            const tpl = TEMPLATES[templateSelect.value];
+            const sizeKey = sizeSelect.value;
+            const c = tpl.textLayout.title;
+            const so = c.sizeOverrides?.[sizeKey];
+
+            const font = so?.font || c.font;
+            const lineHeight = so?.lineHeight || c.lineHeight;
+            const maxWidth = parseInt(widthSlider.value);
+            const maxHeight = so?.maxHeight || c.maxHeight;
+            const transform = c.transform;
+
+            let text = titleInput.value || 'HELLO WORLD';
+            if (transform === 'uppercase') text = text.toUpperCase();
+            if (transform === 'lowercase') text = text.toLowerCase();
+
+            const prepared = prepareWithSegments(text, font);
+            const result = layout(prepared, maxWidth, lineHeight);
+
+            const lineWidths = [];
+            walkLineRanges(prepared, maxWidth, (line) => {
+                lineWidths.push(Math.round(line.width * 10) / 10);
+            });
+            clearCache();
+
+            const maxLines = Math.floor(maxHeight / lineHeight);
+            const fillRatio = maxHeight > 0 ? result.height / maxHeight : 0;
+            const overflow = result.height > maxHeight;
+
+            document.getElementById('statLines').textContent = result.lineCount;
+            document.getElementById('statLinesMax').textContent = `max ~${maxLines} lines`;
+            document.getElementById('statHeight').textContent = Math.round(result.height) + 'px';
+            document.getElementById('statHeightMax').textContent = `/ ${maxHeight}px`;
+            document.getElementById('statFill').textContent = Math.round(fillRatio * 100) + '%';
+
+            const statusEl = document.getElementById('statStatus');
+            if (overflow) {
+                statusEl.textContent = 'OVERFLOW';
+                statusEl.className = 'stat-sub status-overflow';
+            } else {
+                statusEl.textContent = 'OK';
+                statusEl.className = 'stat-sub status-ok';
+            }
+
+            document.getElementById('statFont').textContent = font;
+
+            const barContainer = document.getElementById('barContainer');
+            barContainer.innerHTML = '';
+            const barMax = maxWidth;
+            for (let i = 0; i < lineWidths.length; i++) {
+                const pct = Math.min(100, (lineWidths[i] / barMax) * 100);
+                const row = document.createElement('div');
+                row.className = 'bar-row';
+                row.innerHTML = `
+                    <span class="bar-label">L${i + 1}</span>
+                    <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+                    <span class="bar-val">${lineWidths[i]}px</span>
+                `;
+                barContainer.appendChild(row);
+            }
+        }
+
+        templateSelect.addEventListener('change', () => { populateSizes(); doMeasure(); });
+        sizeSelect.addEventListener('change', () => { updateConstraintSlider(); doMeasure(); });
+        titleInput.addEventListener('input', doMeasure);
+        widthSlider.addEventListener('input', () => {
+            widthVal.textContent = widthSlider.value + 'px';
+            doMeasure();
+        });
+
+        populateSizes();
+        titleInput.value = 'SYSTEM\nINITIALIZED';
+        doMeasure();
+    </script>
+</body>
+</html>

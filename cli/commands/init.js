@@ -56,6 +56,15 @@ function generateMetaJSON(name) {
     sizes: ['a4', 'square', 'banner', 'story', 'wechat-cover', 'wechat-thumb'],
     schemes: ['daylight', 'dark', 'minimal'],
     animation: { supported: false },
+    textLayout: {
+      title: {
+        font: '700 48px Space Grotesk',
+        lineHeight: 52.8,
+        maxWidth: 515,
+        maxHeight: 400,
+        transform: 'uppercase',
+      },
+    },
   }, null, 2) + '\n';
 }
 
@@ -131,11 +140,12 @@ function generateStylesCSS(name) {
 }
 
 .${cls}-title {
-  font-size: 48px;
+  font-size: var(--auto-title-size, 48px);
   font-weight: 700;
   line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  max-width: var(--balanced-title-width, none);
 }
 
 .${cls}-subtitle {

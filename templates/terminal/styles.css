@@ -27,11 +27,12 @@
 
 .poster-terminal .term-title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 56px;
+  font-size: var(--auto-title-size, 56px);
   font-weight: 800;
   line-height: 1.05;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  max-width: var(--balanced-title-width, none);
 }
 
 .poster-terminal .term-separator {
