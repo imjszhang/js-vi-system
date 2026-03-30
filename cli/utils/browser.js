@@ -86,12 +86,14 @@ export async function closeBrowser() {
   }
 }
 
-export async function renderPage(html, { width, height, browserPath } = {}) {
+export async function renderPage(html, { width, height, browserPath, deviceScaleFactor } = {}) {
   const browser = await launchBrowser(browserPath);
   const page = await browser.newPage();
 
+  const dpr =
+    Number.isFinite(deviceScaleFactor) && deviceScaleFactor > 0 ? deviceScaleFactor : 2;
   if (width && height) {
-    await page.setViewport({ width, height, deviceScaleFactor: 2 });
+    await page.setViewport({ width, height, deviceScaleFactor: dpr });
   }
 
   await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });

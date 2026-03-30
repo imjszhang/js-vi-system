@@ -42,12 +42,13 @@ async function handleSinglePoster(opts) {
     duration: opts.duration || animMeta.duration,
     quality: opts.quality,
     browserPath: opts.browserPath,
+    deviceScaleFactor: opts.deviceScaleFactor,
   });
 
   console.log(pc.green(`✓ Generated: ${result}`));
 }
 
-async function handleConfigFile(configPath) {
+async function handleConfigFile(configPath, cliOpts = {}) {
   const raw = readFileSync(resolve(configPath), 'utf-8');
   const config = JSON.parse(raw);
   const posters = config.posters || [config];
@@ -69,12 +70,18 @@ async function handleConfigFile(configPath) {
         const animated = out.format === 'gif';
         const options = { scheme: entry.scheme || 'dark', size: entry.size || 'a4', animated };
         const html = await renderToHTML(entry.template, content, options);
+        const dpr =
+          out.deviceScaleFactor ??
+          entry.deviceScaleFactor ??
+          config.deviceScaleFactor ??
+          cliOpts.deviceScaleFactor;
         const result = await renderOutput(html, out.format, resolve(out.path), {
           ...options,
           width: dim.w,
           height: dim.h,
           fps: out.fps || animMeta.defaultFps,
           duration: out.duration || animMeta.duration,
+          deviceScaleFactor: dpr,
         });
         console.log(pc.green(`✓ Generated: ${result}`));
       } catch (err) {
@@ -104,6 +111,11 @@ export function registerPosterCommand(program) {
     .option('--duration <number>', 'GIF animation duration in ms', parseFloat)
     .option('--quality <number>', 'JPEG quality (0-100)', parseFloat)
     .option('--browser-path <path>', 'Path to Chrome/Edge executable')
+    .option(
+      '--device-scale-factor <n>',
+      'Device pixel ratio for raster screenshots (png/jpeg/pdf). Default in renderer: 2',
+      parseFloat,
+    )
     .option('--templates-dir <path>', 'Additional templates directory')
     .action(async (opts) => {
       try {
@@ -112,7 +124,7 @@ export function registerPosterCommand(program) {
         }
 
         if (opts.config) {
-          await handleConfigFile(opts.config);
+          await handleConfigFile(opts.config, opts);
         } else {
           if (!opts.template) {
             console.error(pc.red('Error: --template or --config is required'));

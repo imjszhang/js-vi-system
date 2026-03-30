@@ -10,6 +10,7 @@ export async function renderImage(html, outputPath, options = {}) {
     width: options.width,
     height: options.height,
     browserPath: options.browserPath,
+    deviceScaleFactor: options.deviceScaleFactor,
   });
 
   try {
