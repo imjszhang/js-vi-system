@@ -1,7 +1,7 @@
 ---
 name: poster-generator
-description: 使用 JS VI System 品牌视觉识别系统生成海报。支持多种模板、配色方案、尺寸和输出格式。
-version: 1.0.1
+description: 使用 JS VI System 品牌视觉识别系统生成海报。支持多种模板、配色方案、尺寸、输出格式和智能文本排版。
+version: 1.3.0
 author: js-vi-system
 ---
 
@@ -91,9 +91,48 @@ author: js-vi-system
    - category: typography → 字体规范
 ```
 
+## 文本排版
+
+v1.3.0 集成了 Pretext 文本引擎，支持智能文本排版。在生成海报时可附加排版选项：
+
+### 排版选项
+
+| 选项 | 说明 |
+|------|------|
+| `--auto-fit` | 自动缩放字号使文本填满约束区域 |
+| `--balanced` | 均衡各行宽度，避免末行过短 |
+| `--shrink-wrap` | 收缩画布宽度至文本实际宽度 |
+| `--strict` | 文本溢出时终止渲染 |
+| `--target-lines <n>` | 自动调整字号使文本恰好排满 n 行 |
+
+排版选项需要模板在 `meta.json` 中声明 `textLayout` 约束才能生效。
+
+### 排版工具命令
+
+除海报生成外，还提供以下独立 CLI 命令用于诊断和验证：
+
+| 命令 | 说明 |
+|------|------|
+| `js-vi measure` | 诊断指定字段的排版情况（行数、高度、填充率、溢出状态） |
+| `js-vi typeset` | 跨所有尺寸扫描排版效果 |
+| `js-vi best-size` | 推荐填充率最优的尺寸 |
+| `js-vi lint` | 批量校验文本溢出，支持 `--strict` 和 JSON 输出 |
+
+### 典型用法
+
+```
+1. 调用 vi_poster_generate，附加排版选项：
+   - autoFit: true      ← 自动缩放字号
+   - balanced: true      ← 均衡行宽
+   - targetLines: 3      ← 目标行数（优先于 autoFit）
+2. 或在批处理配置的 layout 字段中声明：
+   { "layout": { "autoFit": true, "balanced": true } }
+```
+
 ## 注意事项
 
 - 生成 PNG/JPEG/PDF/GIF 需要本地安装 Chrome 或 Edge 浏览器，并在插件配置中设置 `browserPath`
 - 模板字段有默认值，用户未指定的字段会使用模板默认内容
 - `title` 字段支持 `\n` 换行，适合制作多行标题
 - 各模板均支持三种配色方案；通用尺寸含 `a4` / `square` / `banner` / `story`，`wechat-cover` 模板另支持 `wechat-cover` 与 `wechat-thumb`
+- 排版选项（`--auto-fit` 等）需要模板声明 `textLayout` 约束，未声明时选项将被静默忽略

@@ -39,6 +39,18 @@ templates/
     "duration": 3000,
     "defaultFps": 10,
     "description": "Description of the animation"
+  },
+  "textLayout": {
+    "title": {
+      "font": "700 48px Space Grotesk",
+      "lineHeight": 52.8,
+      "maxWidth": 515,
+      "maxHeight": 400,
+      "transform": "uppercase",
+      "sizeOverrides": {
+        "banner": { "font": "700 32px Space Grotesk", "lineHeight": 35.2, "maxWidth": 592, "maxHeight": 180 }
+      }
+    }
   }
 }
 ```
@@ -57,6 +69,40 @@ templates/
 | `sizes` | array | 支持的尺寸：`a4` / `square` / `banner` / `story` / `wechat-cover` / `wechat-thumb` |
 | `schemes` | array | 支持的配色：`daylight` / `dark` / `minimal` |
 | `animation` | object | 可选，GIF 动画相关配置 |
+| `textLayout` | object | 可选，文本排版约束（启用 `measure`/`typeset`/`lint` 等工具及 `--auto-fit`/`--balanced`） |
+
+### textLayout 字段
+
+`textLayout` 为 Pretext 文本引擎提供排版约束。键名必须与 `fields` 中的 `key` 一一对应（如 `title`、`subtitle`）。
+
+```json
+"textLayout": {
+  "title": {
+    "font": "700 48px Space Grotesk",
+    "lineHeight": 52.8,
+    "maxWidth": 515,
+    "maxHeight": 400,
+    "transform": "uppercase",
+    "sizeOverrides": {
+      "banner": { "font": "700 32px Space Grotesk", "lineHeight": 35.2, "maxWidth": 592, "maxHeight": 180 }
+    }
+  }
+}
+```
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| `font` | string | CSS font shorthand，如 `"700 48px Space Grotesk"` |
+| `lineHeight` | number | 行高（px），建议为 `fontSize × line-height 比率` |
+| `maxWidth` | number | 文本最大宽度（px），通常 = 画布宽度 − 左右 padding |
+| `maxHeight` | number | 文本最大高度（px），标题区域可用空间 |
+| `transform` | string | 可选，`"uppercase"` 或 `"lowercase"` |
+| `sizeOverrides` | object | 可选，按尺寸名覆盖约束；值可覆盖上述任意属性 |
+
+**计算提示**：
+- `maxWidth` = 画布宽度 − padding×2（如 595 − 40×2 = 515）
+- `lineHeight` = fontSize × CSS line-height 比率（如 48 × 1.1 = 52.8）
+- 如果某尺寸有不同的字号，`sizeOverrides` 中需一并提供 `font` 和 `lineHeight`
 
 ---
 
@@ -139,6 +185,24 @@ export function render(content, options = {}) {
 | `--p-grid-line` | 网格线色 | `rgba(0,0,0,0.08)` | `rgba(252,210,40,0.06)` | `rgba(0,0,0,0.04)` |
 | `--p-tag-bg` | 标签背景 | `#000000` | `#FCD228` | `#000000` |
 | `--p-tag-text` | 标签文字 | `#FCD228` | `#000000` | `#FCD228` |
+
+### 文本排版 CSS 变量
+
+当模板配置了 `textLayout` 且用户使用 `--auto-fit` 或 `--balanced` 选项时，渲染引擎会注入动态 CSS 变量。在 `styles.css` 中使用 `var()` 消费即可：
+
+| 变量 | 来源 | 说明 |
+|------|------|------|
+| `--auto-title-size` | `--auto-fit` / `--target-lines` | 自动计算的字号（如 `42px`） |
+| `--balanced-title-width` | `--balanced` | 均衡行宽的 max-width（如 `380px`） |
+
+```css
+.my-poster .title {
+  font-size: var(--auto-title-size, 48px);
+  max-width: var(--balanced-title-width, none);
+}
+```
+
+> `var()` 的第二个参数是 fallback 值，当用户未启用相应选项时会使用。
 
 ### 添加配色方案特定覆盖
 
@@ -252,6 +316,68 @@ my-posters/
 | `[directory]` | 目标目录，默认当前目录 |
 | `-t, --template <name>` | 同时创建模板骨架 |
 | `--vi-system-path <path>` | 手动指定 js-vi-system 路径（默认自动推断） |
+
+---
+
+## 文本排版工具
+
+当模板声明了 `textLayout` 约束后，可使用以下 CLI 命令调试和验证文本排版：
+
+### 度量（measure）
+
+诊断指定字段在特定尺寸下的排版情况：
+
+```bash
+js-vi measure --template my-template --title "HELLO WORLD" --size a4
+```
+
+输出字段的行数、高度、填充率和溢出状态。外部模板需加 `--templates-dir`：
+
+```bash
+js-vi measure --template my-template --templates-dir ./my-templates --title "HELLO WORLD"
+```
+
+### 排版扫描（typeset）
+
+跨所有尺寸扫描排版效果：
+
+```bash
+js-vi typeset --template my-template --title "HELLO WORLD"
+```
+
+### 最佳尺寸（best-size）
+
+推荐填充率最优的尺寸：
+
+```bash
+js-vi best-size --template my-template --title "HELLO WORLD"
+```
+
+### 文本溢出检查（lint）
+
+批量校验海报配置文件中的文本溢出：
+
+```bash
+js-vi lint --config posters.json
+```
+
+支持 `--strict` 模式，溢出时返回非零退出码，适合 CI 集成。
+
+### 生成选项
+
+`poster` 命令支持以下文本排版选项：
+
+| 选项 | 说明 |
+|------|------|
+| `--auto-fit` | 自动缩放字号使文本填满约束区域 |
+| `--balanced` | 均衡各行宽度，避免末行过短 |
+| `--shrink-wrap` | 收缩画布宽度至文本实际宽度 |
+| `--strict` | 文本溢出时终止渲染（退出码 1） |
+| `--target-lines <n>` | 自动调整字号使文本恰好排满 n 行 |
+
+```bash
+js-vi poster --template my-template --auto-fit --balanced -f png -o out.png
+```
 
 ---
 
