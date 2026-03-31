@@ -7,6 +7,7 @@ import { registerMeasureCommand } from './commands/measure.js';
 import { registerTypesetCommand } from './commands/typeset.js';
 import { registerBestSizeCommand } from './commands/best-size.js';
 import { registerLintCommand } from './commands/lint.js';
+import { registerGalleryCommand } from './commands/gallery.js';
 
 const program = new Command();
 
@@ -23,5 +24,6 @@ registerMeasureCommand(program);
 registerTypesetCommand(program);
 registerBestSizeCommand(program);
 registerLintCommand(program);
+registerGalleryCommand(program);
 
 program.parse();

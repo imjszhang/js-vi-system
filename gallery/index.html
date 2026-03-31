@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>// POSTER GALLERY — {{PROJECT_TITLE}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/gallery.css">
+</head>
+<body>
+    <div class="gallery-app">
+        <header class="gallery-header">
+            <div class="header-brand">
+                <h1 class="header-title">// POSTER GALLERY</h1>
+                <span class="header-sub">{{PROJECT_TITLE}}</span>
+            </div>
+            <div class="header-status">
+                <span class="sse-dot" id="sse-dot"></span>
+                <span class="sse-label" id="sse-label">CONNECTING</span>
+            </div>
+        </header>
+
+        <div class="gallery-toolbar" id="toolbar">
+            <div class="toolbar-group">
+                <span class="toolbar-label">TEMPLATE</span>
+                <select class="filter-select" id="filter-template">
+                    <option value="all">ALL</option>
+                </select>
+            </div>
+            <div class="toolbar-group">
+                <span class="toolbar-label">SCHEME</span>
+                <div class="toolbar-filters" id="filter-scheme">
+                    <button class="filter-btn active" data-value="all">ALL</button>
+                    <button class="filter-btn" data-value="dark">DARK</button>
+                    <button class="filter-btn" data-value="daylight">DAYLIGHT</button>
+                    <button class="filter-btn" data-value="minimal">MINIMAL</button>
+                </div>
+            </div>
+            <div class="toolbar-group">
+                <span class="toolbar-label">SIZE</span>
+                <div class="toolbar-filters" id="filter-size">
+                    <button class="filter-btn active" data-value="all">ALL</button>
+                </div>
+            </div>
+            <div class="toolbar-stats">
+                <span class="stat-badge" id="stat-total">0 POSTERS</span>
+                <span class="stat-badge" id="stat-showing">0 SHOWING</span>
+            </div>
+        </div>
+
+        <main class="gallery-main">
+            <div class="gallery-loading" id="loading">
+                <span class="loading-text">// LOADING POSTERS...</span>
+            </div>
+            <div class="gallery-empty" id="empty" style="display:none">
+                <span class="empty-text">// NO POSTERS FOUND</span>
+                <span class="empty-hint">Run npm run poster to generate posters into output/</span>
+            </div>
+            <div class="gallery-error" id="error" style="display:none">
+                <span class="error-text">// CONNECTION ERROR</span>
+                <span class="error-hint" id="error-msg"></span>
+            </div>
+            <div class="gallery-grid" id="gallery-grid"></div>
+        </main>
+
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-backdrop"></div>
+            <div class="lightbox-content">
+                <div class="lightbox-image-wrap">
+                    <img class="lightbox-image" id="lightbox-image" src="" alt="">
+                </div>
+                <div class="lightbox-meta" id="lightbox-meta"></div>
+                <button class="lightbox-close" id="lightbox-close">&times;</button>
+            </div>
+        </div>
+
+        <footer class="gallery-footer">
+            <div class="footer-left">
+                <span class="footer-brand">JS_VI_SYSTEM</span>
+                <span class="footer-sep">//</span>
+                <span class="footer-info">POSTER GALLERY</span>
+            </div>
+            <div class="footer-right">
+                <span class="footer-mono" id="footer-port"></span>
+            </div>
+        </footer>
+    </div>
+    <script src="/js/gallery.js"></script>
+</body>
+</html>
