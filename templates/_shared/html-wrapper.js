@@ -47,7 +47,7 @@ ${baseCSS}
 ${templateCSS}
   </style>
 </head>
-<body style="margin:0;padding:0">
+<body style="margin:0;padding:0;min-height:100vh;display:flex;justify-content:center;align-items:center;background:#111">
   <div class="scheme-${scheme}" style="width:${width}px;height:${dim.h}px${varStyle}">
     ${fragment}
   </div>
