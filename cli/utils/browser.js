@@ -55,7 +55,7 @@ let browserInstance = null;
 export async function launchBrowser(customPath) {
   if (browserInstance) return browserInstance;
 
-  const puppeteer = await import('puppeteer-core');
+  const { chromium } = await import('playwright-core');
   const executablePath = customPath || findBrowserPath();
 
   if (!executablePath) {
@@ -65,7 +65,7 @@ export async function launchBrowser(customPath) {
     );
   }
 
-  browserInstance = await puppeteer.default.launch({
+  browserInstance = await chromium.launch({
     executablePath,
     headless: true,
     args: [
@@ -88,14 +88,15 @@ export async function closeBrowser() {
 
 export async function renderPage(html, { width, height, browserPath, deviceScaleFactor } = {}) {
   const browser = await launchBrowser(browserPath);
-  const page = await browser.newPage();
 
   const dpr =
     Number.isFinite(deviceScaleFactor) && deviceScaleFactor > 0 ? deviceScaleFactor : 2;
-  if (width && height) {
-    await page.setViewport({ width, height, deviceScaleFactor: dpr });
-  }
+  const context = await browser.newContext({
+    viewport: (width && height) ? { width, height } : undefined,
+    deviceScaleFactor: dpr,
+  });
+  const page = await context.newPage();
 
-  await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
+  await page.setContent(html, { waitUntil: 'networkidle', timeout: 30000 });
   return page;
 }

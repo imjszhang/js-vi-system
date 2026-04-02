@@ -39,6 +39,6 @@
     "commander": "^13.0.0",
     "gifenc": "^1.0.3",
     "picocolors": "^1.1.0",
-    "puppeteer-core": "^24.39.1"
+    "playwright-core": "^1.59.1"
   }
 }

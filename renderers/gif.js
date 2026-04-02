@@ -29,6 +29,7 @@ export async function renderGIF(html, outputPath, options = {}) {
     });
 
     const gif = GIFEncoder();
+    const vp = page.viewportSize();
 
     for (let i = 0; i < totalFrames; i++) {
       const time = (i / totalFrames) * duration;
@@ -43,7 +44,7 @@ export async function renderGIF(html, outputPath, options = {}) {
 
       const buffer = await page.screenshot({
         type: 'png',
-        clip: { x: 0, y: 0, width: page.viewport().width, height: page.viewport().height },
+        clip: { x: 0, y: 0, width: vp.width, height: vp.height },
         omitBackground: false,
       });
 
@@ -60,7 +61,9 @@ export async function renderGIF(html, outputPath, options = {}) {
 
     return outputPath;
   } finally {
+    const context = page.context();
     await page.close();
+    await context.close();
     await closeBrowser();
   }
 }

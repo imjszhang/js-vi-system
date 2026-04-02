@@ -25,7 +25,9 @@ export async function renderPDF(html, outputPath, options = {}) {
 
     return outputPath;
   } finally {
+    const context = page.context();
     await page.close();
+    await context.close();
     await closeBrowser();
   }
 }

@@ -24,7 +24,7 @@ export async function renderImage(html, outputPath, options = {}) {
       screenshotOptions.quality = options.quality || 90;
     }
 
-    const element = await page.$('.poster');
+    const element = await page.locator('.poster').first().elementHandle();
     if (element) {
       await element.screenshot(screenshotOptions);
     } else {
@@ -33,7 +33,9 @@ export async function renderImage(html, outputPath, options = {}) {
 
     return outputPath;
   } finally {
+    const context = page.context();
     await page.close();
+    await context.close();
     await closeBrowser();
   }
 }

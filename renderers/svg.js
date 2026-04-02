@@ -38,7 +38,9 @@ export async function renderSVG(html, outputPath, options = {}) {
     writeFileSync(outputPath, svg, 'utf-8');
     return outputPath;
   } finally {
+    const context = page.context();
     await page.close();
+    await context.close();
     await closeBrowser();
   }
 }
