@@ -1,6 +1,6 @@
 {
   "name": "@js-vi/cli",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "JS-VI poster generator CLI — render branded posters in PNG, SVG, PDF, GIF from templates.",
   "type": "module",
   "main": "core/template-engine.js",
@@ -22,7 +22,7 @@
     "poster": "node bin/js-vi.js poster"
   },
   "dependencies": {
-    "@js-vi/tokens": "^1.0.0",
+    "@js-vi/tokens": "^1.4.0",
     "@chenglou/pretext": "^0.0.3",
     "@napi-rs/canvas": "^0.1.97",
     "commander": "^13.0.0",

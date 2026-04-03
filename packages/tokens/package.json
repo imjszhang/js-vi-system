@@ -1,6 +1,6 @@
 {
   "name": "@js-vi/tokens",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "JS Visual Identity System — Neo-Brutalism design tokens, CSS variables, and Tailwind CSS preset.",
   "type": "module",
   "main": "css/tailwind-preset.js",
