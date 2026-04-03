@@ -29,7 +29,7 @@ export function registerGalleryCommand(program) {
         }
       }
 
-      const { startGalleryServer } = await import('../../gallery/server.js');
+      const { startGalleryServer } = await import('../../../../gallery/server.js');
       startGalleryServer({ outputDir, configsDir, port, projectTitle });
     });
 }

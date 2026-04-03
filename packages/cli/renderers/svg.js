@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
-import { renderPage, closeBrowser } from '../cli/utils/browser.js';
+import { renderPage, closeBrowser } from '../core/browser.js';
 
 export async function renderSVG(html, outputPath, options = {}) {
   mkdirSync(dirname(outputPath), { recursive: true });

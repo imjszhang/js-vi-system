@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import pc from 'picocolors';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const viSystemRoot = resolve(__dirname, '..', '..');
+const cliPackageRoot = resolve(__dirname, '..', '..');
 
 function toLabel(name) {
   return name
@@ -27,16 +27,16 @@ function writeFile(filePath, content) {
 
 function generatePackageJSON(dir) {
   const name = basename(resolve(dir));
-  const relPath = relative(resolve(dir), viSystemRoot).replace(/\\/g, '/');
+  const relPath = relative(resolve(dir), cliPackageRoot).replace(/\\/g, '/');
 
   return JSON.stringify({
     name,
     version: '1.0.0',
     private: true,
     type: 'module',
-    description: `Template extension for js-vi-system`,
+    description: `Template extension for @js-vi/cli`,
     dependencies: {
-      'js-vi-system': `file:${relPath}`,
+      '@js-vi/cli': `file:${relPath}`,
     },
     scripts: {
       poster: 'js-vi poster --templates-dir templates',
@@ -53,7 +53,7 @@ function generateGitignore() {
 function generateSharedLogoJS() {
   return `// Replace with your project's logo SVG
 // Example: js-vi-templates-cybertaoist/templates/_shared/ct-logo.js
-export { LOGO_SVG as PROJECT_LOGO_SVG } from 'js-vi-system/templates/_shared/logo.js';
+export { LOGO_SVG as PROJECT_LOGO_SVG } from '@js-vi/cli/templates/_shared/logo.js';
 `;
 }
 
@@ -85,7 +85,7 @@ function generateMetaJSON(name) {
 function generateRenderJS(name) {
   const p = toPrefix(name);
   return `import { PROJECT_LOGO_SVG } from '../_shared/logo.js';
-import { esc } from 'js-vi-system/templates/_shared/utils.js';
+import { esc } from '@js-vi/cli/templates/_shared/utils.js';
 
 export function render(content, options = {}) {
   const c = content;
@@ -230,7 +230,7 @@ function generateReadme(projectName, templateName) {
 
   return `# ${projectName}
 
-Poster templates powered by [js-vi-system](https://github.com/imjszhang/js-vi-system).
+Poster templates powered by [@js-vi/cli](https://github.com/imjszhang/js-vi-system).
 
 ## Quick Start
 
@@ -381,7 +381,7 @@ Keys must match \`fields[].key\`. Provides constraints for the Pretext text engi
 
 \`\`\`javascript
 import { PROJECT_LOGO_SVG } from '../_shared/logo.js';
-import { esc } from 'js-vi-system/templates/_shared/utils.js';
+import { esc } from '@js-vi/cli/templates/_shared/utils.js';
 
 const ANIM_STYLES = \\\`
 @keyframes slideUp {

@@ -1,0 +1,42 @@
+{
+  "name": "@js-vi/tokens",
+  "version": "1.0.0",
+  "description": "JS Visual Identity System — Neo-Brutalism design tokens, CSS variables, and Tailwind CSS preset.",
+  "type": "module",
+  "main": "css/tailwind-preset.js",
+  "exports": {
+    ".": "./css/tailwind-preset.js",
+    "./tokens": "./index.js",
+    "./css/tokens.css": "./css/tokens.css",
+    "./css/brutal.css": "./css/brutal.css",
+    "./tailwind-preset": "./css/tailwind-preset.js"
+  },
+  "files": [
+    "index.js",
+    "*.json",
+    "css/"
+  ],
+  "scripts": {
+    "build": "node build/generate.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "design-system",
+    "visual-identity",
+    "design-tokens",
+    "neo-brutalism",
+    "tailwind-preset",
+    "css-variables"
+  ],
+  "author": "imjszhang",
+  "license": "MIT",
+  "homepage": "https://github.com/imjszhang/js-vi-system/tree/master/packages/tokens",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imjszhang/js-vi-system.git",
+    "directory": "packages/tokens"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

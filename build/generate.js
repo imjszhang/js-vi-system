@@ -10,7 +10,8 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
-const load = (name) => JSON.parse(readFileSync(join(root, 'tokens', name), 'utf-8'));
+const tokensDir = join(root, 'packages', 'tokens');
+const load = (name) => JSON.parse(readFileSync(join(tokensDir, name), 'utf-8'));
 
 const colors = load('colors.json');
 const typography = load('typography.json');
@@ -135,7 +136,7 @@ function generateTailwindPreset() {
 // ─── Generate preview/posters.html ───────────────────────────────────
 
 function generatePostersHTML() {
-  const templatesDir = join(root, 'templates');
+  const templatesDir = join(root, 'packages', 'cli', 'templates');
   const sharedDir = join(templatesDir, '_shared');
 
   // --- Read and inline CSS from template source files ---
@@ -487,13 +488,13 @@ ${fieldMapEntries.join(',\n')}
 
 // ─── Write files ────────────────────────────────────────────────────
 
-writeFileSync(join(root, 'css', 'tokens.css'), generateTokensCSS(), 'utf-8');
-console.log('✓ css/tokens.css');
+writeFileSync(join(tokensDir, 'css', 'tokens.css'), generateTokensCSS(), 'utf-8');
+console.log('✓ packages/tokens/css/tokens.css');
 
-writeFileSync(join(root, 'css', 'tailwind-preset.js'), generateTailwindPreset(), 'utf-8');
-console.log('✓ css/tailwind-preset.js');
+writeFileSync(join(tokensDir, 'css', 'tailwind-preset.js'), generateTailwindPreset(), 'utf-8');
+console.log('✓ packages/tokens/css/tailwind-preset.js');
 
 writeFileSync(join(root, 'preview', 'posters.html'), generatePostersHTML(), 'utf-8');
 console.log('✓ preview/posters.html');
 
-console.log('\nBuild complete.');
+console.log('\nFull build complete.');

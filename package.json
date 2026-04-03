@@ -1,44 +1,12 @@
 {
-  "name": "js-vi-system",
-  "version": "1.3.0",
-  "description": "JS Brand Visual Identity System — Neo-Brutalism + Cyberpunk design tokens, components, and brand guidelines. Includes CLI poster generator.",
-  "type": "module",
-  "main": "css/tailwind-preset.js",
-  "bin": {
-    "js-vi": "./bin/js-vi.js"
-  },
-  "exports": {
-    ".": "./css/tailwind-preset.js",
-    "./tokens": "./tokens/index.js",
-    "./css/tokens.css": "./css/tokens.css",
-    "./css/brutal.css": "./css/brutal.css",
-    "./tailwind-preset": "./css/tailwind-preset.js",
-    "./templates": "./core/template-engine.js",
-    "./templates/_shared/*": "./templates/_shared/*"
-  },
-  "scripts": {
-    "build": "node build/generate.js",
-    "preview": "npx serve . -l 3000 --cors",
-    "poster": "node bin/js-vi.js poster"
-  },
-  "keywords": [
-    "design-system",
-    "visual-identity",
-    "neo-brutalism",
-    "design-tokens",
-    "tailwind-preset",
-    "poster-generator",
-    "cli"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "author": "imjszhang",
-  "license": "MIT",
-  "homepage": "https://github.com/imjszhang/js-vi-system",
-  "dependencies": {
-    "@chenglou/pretext": "^0.0.3",
-    "@napi-rs/canvas": "^0.1.97",
-    "commander": "^13.0.0",
-    "gifenc": "^1.0.3",
-    "picocolors": "^1.1.0",
-    "playwright-core": "^1.59.1"
+  "scripts": {
+    "build": "npm run build -w @js-vi/tokens",
+    "build:all": "npm run build -w @js-vi/tokens && node build/generate.js",
+    "preview": "npx serve . -l 3000 --cors",
+    "poster": "npm run poster -w @js-vi/cli"
   }
 }

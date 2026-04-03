@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -8,7 +9,7 @@ export function registerBuildCommand(program) {
     .command('build')
     .description('Generate CSS tokens and Tailwind preset from design tokens')
     .action(async () => {
-      const buildScript = join(__dirname, '..', '..', 'build', 'generate.js');
-      await import('file:///' + buildScript.replace(/\\/g, '/'));
+      const tokensGenerateScript = join(__dirname, '..', '..', '..', 'tokens', 'build', 'generate.js');
+      await import('file:///' + tokensGenerateScript.replace(/\\/g, '/'));
     });
 }

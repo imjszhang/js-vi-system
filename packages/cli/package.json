@@ -1,0 +1,51 @@
+{
+  "name": "@js-vi/cli",
+  "version": "1.0.0",
+  "description": "JS-VI poster generator CLI — render branded posters in PNG, SVG, PDF, GIF from templates.",
+  "type": "module",
+  "main": "core/template-engine.js",
+  "bin": {
+    "js-vi": "./bin/js-vi.js"
+  },
+  "exports": {
+    "./templates": "./core/template-engine.js",
+    "./templates/_shared/*": "./templates/_shared/*"
+  },
+  "files": [
+    "bin/",
+    "cli/",
+    "core/",
+    "renderers/",
+    "templates/"
+  ],
+  "scripts": {
+    "poster": "node bin/js-vi.js poster"
+  },
+  "dependencies": {
+    "@js-vi/tokens": "^1.0.0",
+    "@chenglou/pretext": "^0.0.3",
+    "@napi-rs/canvas": "^0.1.97",
+    "commander": "^13.0.0",
+    "gifenc": "^1.0.3",
+    "picocolors": "^1.1.0",
+    "playwright-core": "^1.59.1"
+  },
+  "keywords": [
+    "poster-generator",
+    "cli",
+    "neo-brutalism",
+    "visual-identity",
+    "design-system"
+  ],
+  "author": "imjszhang",
+  "license": "MIT",
+  "homepage": "https://github.com/imjszhang/js-vi-system/tree/master/packages/cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imjszhang/js-vi-system.git",
+    "directory": "packages/cli"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
