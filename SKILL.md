@@ -194,6 +194,8 @@ Templates (render.js + meta.json + styles.css)
        ↓
   Text Measure (Pretext) → fitFontSize / balanceText / measureField
        ↓
+  Spatial Layout → computeSpatialVars (zones → CSS variables)
+       ↓
   Renderer Factory → renderOutput()
        ↓
 ┌──────────────────────────────┐
@@ -328,7 +330,7 @@ js-vi-system/
 │   ├── config.js                         ← Option validation, content merging
 │   ├── text-measure.js                   ← Pretext text measurement (measureText, fitFontSize, balanceText, etc.)
 │   ├── renderer-factory.js               ← Multi-format render dispatch
-│   └── template-engine.js                ← Template discovery, loading, HTML rendering
+│   └── template-engine.js                ← Template discovery, loading, HTML rendering, spatialLayout
 ├── css/
 │   ├── tokens.css                        ← Generated CSS custom properties
 │   ├── brutal.css                        ← Neo-Brutalism component styles

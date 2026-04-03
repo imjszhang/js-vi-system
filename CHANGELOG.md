@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file. Version numbers follow the package `version` field in `package.json`.
 
+## [1.4.0] - 2026-04-03
+
+### Added
+
+- **`spatialLayout` engine** — generic, data-driven zone-based layout system in `template-engine.js`. Templates declare an ordered `zones` array in `meta.json`; the engine measures text heights via Pretext, computes zone positions, and outputs CSS variables through a `vars` mapping. No template-specific names or CSS variables are hardcoded in the engine.
+- **`textLayout.autoSizeVar`** — optional property on `textLayout` field constraints. When present, `measureFieldHeight` uses the auto-fitted font size (from the named CSS variable) instead of the base font size, ensuring spatial layout measurements match the rendered output.
+- **`computeSpatialVars()`** — new internal function that processes `spatialLayout.zones`, supports `fill` (remaining space), `extendBehind` (overlap zones), `margin`, and per-size overrides via `sizeOverrides`.
+
 ## [1.3.0] - 2026-03-30
 
 ### Added

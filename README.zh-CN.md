@@ -97,6 +97,8 @@ npm run poster -- --template event-poster -f html -o output/test.html
 
 每个模板的 `meta.json` 定义了 `textLayout` 约束（font、lineHeight、maxWidth、maxHeight），供这些工具使用。
 
+模板还可声明 `spatialLayout` — 基于 zone 的动态布局系统，根据文本测量高度计算 CSS 变量（如图片位置和大小）。详见 [templates/CREATING_TEMPLATES.md](packages/cli/templates/CREATING_TEMPLATES.md)。
+
 ## 品牌色
 
 | 颜色 | 色值 | 象征 |

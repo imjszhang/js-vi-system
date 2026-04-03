@@ -97,6 +97,8 @@ Diagnostic commands:
 
 Each template's `meta.json` defines `textLayout` constraints (font, lineHeight, maxWidth, maxHeight) that these tools use for measurement.
 
+Templates can also declare `spatialLayout` — a zone-based system that dynamically computes CSS variables (e.g. image position and size) based on measured text heights. See [templates/CREATING_TEMPLATES.md](packages/cli/templates/CREATING_TEMPLATES.md) for the full schema.
+
 ## Brand Colors
 
 | Color | Hex | Symbol |

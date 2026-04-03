@@ -97,12 +97,59 @@ templates/
 | `maxWidth` | number | 文本最大宽度（px），通常 = 画布宽度 − 左右 padding |
 | `maxHeight` | number | 文本最大高度（px），标题区域可用空间 |
 | `transform` | string | 可选，`"uppercase"` 或 `"lowercase"` |
+| `autoSizeVar` | string | 可选，CSS 变量名（如 `"--auto-title-size"`）。当 `spatialLayout` 测量该字段高度时，使用此变量的 auto-fitted 字号而非基础字号 |
 | `sizeOverrides` | object | 可选，按尺寸名覆盖约束；值可覆盖上述任意属性 |
 
 **计算提示**：
 - `maxWidth` = 画布宽度 − padding×2（如 595 − 40×2 = 515）
 - `lineHeight` = fontSize × CSS line-height 比率（如 48 × 1.1 = 52.8）
 - 如果某尺寸有不同的字号，`sizeOverrides` 中需一并提供 `font` 和 `lineHeight`
+
+### spatialLayout（可选）
+
+当模板需要根据文本长度动态调整元素位置时（如图片模板中图片区域随标题高度变化），在 `meta.json` 中声明 `spatialLayout`。
+
+引擎读取 `zones` 数组，使用 Pretext 测量文本高度，计算每个 zone 的 `top` 和 `height`，通过 `vars` 映射输出 CSS 变量。**引擎不预设任何 zone 名称或 CSS 变量名——一切由配置声明驱动。**
+
+```json
+"spatialLayout": {
+  "zones": [
+    { "id": "head", "fixed": 0, "measure": ["title"] },
+    { "id": "hero", "fill": true, "extendBehind": ["tail", "footer"] },
+    { "id": "tail", "fixed": 120, "measure": ["subtitle"] },
+    { "id": "footer", "fixed": 104 }
+  ],
+  "vars": {
+    "--sl-hero-top": "hero.top",
+    "--sl-hero-height": "hero.height"
+  },
+  "sizeOverrides": {
+    "banner": { "tail": { "fixed": 24 }, "footer": { "fixed": 60 } }
+  }
+}
+```
+
+| zone 属性 | 说明 |
+|-----------|------|
+| `id` | 唯一标识，用于 `vars` 映射和 `sizeOverrides` 引用 |
+| `fixed` | 固定像素高度（非文字元素） |
+| `measure` | 数组，引用 `textLayout` 中的字段名，由 Pretext 动态测量高度 |
+| `fill` | `true` 标记为填充 zone，获取剩余空间（最多一个） |
+| `margin` | 填充 zone 与前一个 zone 的间距 |
+| `extendBehind` | 数组，填充 zone 穿透的其他 zone（不从 fill 高度中减去） |
+
+`vars` 映射格式：`"CSS变量名": "zoneId.prop"`，`prop` 支持 `top` 和 `height`。
+
+CSS 中使用 `var()` 消费，带 fallback 值确保无 spatialLayout 时仍可渲染：
+
+```css
+.xx-image-layer {
+  top: var(--sl-hero-top, 15%);
+  height: var(--sl-hero-height, 65%);
+}
+```
+
+不声明 `spatialLayout` 的模板完全不受影响。
 
 ---
 
@@ -186,14 +233,15 @@ export function render(content, options = {}) {
 | `--p-tag-bg` | 标签背景 | `#000000` | `#FCD228` | `#000000` |
 | `--p-tag-text` | 标签文字 | `#FCD228` | `#000000` | `#FCD228` |
 
-### 文本排版 CSS 变量
+### 动态 CSS 变量
 
-当模板配置了 `textLayout` 且用户使用 `--auto-fit` 或 `--balanced` 选项时，渲染引擎会注入动态 CSS 变量。在 `styles.css` 中使用 `var()` 消费即可：
+渲染引擎根据 `meta.json` 中的 `textLayout` 和 `spatialLayout` 声明注入动态 CSS 变量：
 
 | 变量 | 来源 | 说明 |
 |------|------|------|
-| `--auto-title-size` | `--auto-fit` / `--target-lines` | 自动计算的字号（如 `42px`） |
-| `--balanced-title-width` | `--balanced` | 均衡行宽的 max-width（如 `380px`） |
+| `--auto-title-size` | `textLayout` + `--auto-fit` / `--target-lines` | 自动计算的字号（如 `42px`） |
+| `--balanced-title-width` | `textLayout` + `--balanced` | 均衡行宽的 max-width（如 `380px`） |
+| `--sl-*`（自定义） | `spatialLayout.vars` 映射 | 由 zone 计算得出的位置/尺寸值（如 `--sl-hero-top: 197px`） |
 
 ```css
 .my-poster .title {
