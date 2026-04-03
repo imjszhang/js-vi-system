@@ -65,13 +65,14 @@ function measureFieldHeight(fieldName, content, textLayout, sizeKey, cssVars) {
 
   if (!font || !maxWidth || !lineHeight) return 0;
 
-  if (fieldName === 'title' && cssVars['--auto-title-size']) {
+  const autoVar = constraint.autoSizeVar;
+  if (autoVar && cssVars[autoVar]) {
     const fontMatch = font.match(/^(\d+)\s+(\d+)px\s+(.+)$/);
     if (fontMatch) {
       const [, weight, baseSizeStr, family] = fontMatch;
       const baseSize = parseFloat(baseSizeStr);
       const ratio = lineHeight / baseSize;
-      const autoSize = parseFloat(cssVars['--auto-title-size']);
+      const autoSize = parseFloat(cssVars[autoVar]);
       font = `${weight} ${autoSize}px ${family}`;
       lineHeight = autoSize * ratio;
     }
@@ -83,34 +84,56 @@ function measureFieldHeight(fieldName, content, textLayout, sizeKey, cssVars) {
 
 function computeSpatialVars(content, meta, sizeKey, cssVars) {
   const sl = meta.spatialLayout;
-  if (!sl) return;
+  if (!sl?.zones) return;
 
   const dim = SIZES[sizeKey] || SIZES.a4;
-  const overrides = sl.sizeOverrides?.[sizeKey] || {};
+  const sizeOv = sl.sizeOverrides?.[sizeKey] || {};
 
-  const head = { ...sl.head, ...overrides.head };
-  const tail = { ...sl.tail, ...overrides.tail };
-  const footer = { ...sl.footer, ...overrides.footer };
-  const hero = { ...sl.hero, ...overrides.hero };
+  const zones = sl.zones.map(z => ({ ...z, ...(sizeOv[z.id] || {}) }));
 
-  let headHeight = head.fixedHeight || 0;
-  for (const field of (head.measuredFields || [])) {
-    headHeight += measureFieldHeight(field, content, meta.textLayout, sizeKey, cssVars);
+  const heights = {};
+  let fillIdx = -1;
+
+  for (let i = 0; i < zones.length; i++) {
+    const z = zones[i];
+    if (z.fill) {
+      fillIdx = i;
+      continue;
+    }
+    let h = z.fixed || 0;
+    for (const field of (z.measure || [])) {
+      h += measureFieldHeight(field, content, meta.textLayout, sizeKey, cssVars);
+    }
+    heights[z.id] = h;
   }
 
-  let tailHeight = tail.fixedHeight || 0;
-  for (const field of (tail.measuredFields || [])) {
-    tailHeight += measureFieldHeight(field, content, meta.textLayout, sizeKey, cssVars);
+  if (fillIdx >= 0) {
+    const fillZone = zones[fillIdx];
+    const margin = fillZone.margin || 0;
+    const extendBehind = new Set(fillZone.extendBehind || []);
+    let used = margin;
+    for (const z of zones) {
+      if (z.fill) continue;
+      if (!extendBehind.has(z.id)) used += (heights[z.id] || 0);
+    }
+    heights[fillZone.id] = Math.max(0, dim.h - used);
   }
 
-  const footerHeight = footer.fixedHeight || 0;
-  const margin = hero.margin || 0;
+  const tops = {};
+  let cursor = 0;
+  for (const z of zones) {
+    if (z.fill && z.margin) cursor += z.margin;
+    tops[z.id] = cursor;
+    cursor += (heights[z.id] || 0);
+  }
 
-  const heroTop = headHeight + margin;
-  const heroHeight = Math.max(0, dim.h - headHeight - tailHeight - footerHeight - 2 * margin);
-
-  cssVars['--sl-hero-top'] = `${Math.round(heroTop)}px`;
-  cssVars['--sl-hero-height'] = `${Math.round(heroHeight)}px`;
+  if (sl.vars) {
+    for (const [varName, expr] of Object.entries(sl.vars)) {
+      const [zoneId, prop] = expr.split('.');
+      const val = prop === 'top' ? tops[zoneId] : prop === 'height' ? heights[zoneId] : undefined;
+      if (val != null) cssVars[varName] = `${Math.round(val)}px`;
+    }
+  }
 }
 
 function computeCSSVars(content, meta, options) {
