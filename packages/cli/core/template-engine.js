@@ -3,7 +3,7 @@ import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import { wrapHTML } from '../templates/_shared/html-wrapper.js';
 import { SIZES } from '../templates/_shared/sizes.js';
-import { fitFontSize, balanceText, shrinkWrapWidth, fitToLines } from './text-measure.js';
+import { fitFontSize, balanceText, shrinkWrapWidth, fitToLines, measureText } from './text-measure.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const builtinTemplatesDir = join(__dirname, '..', 'templates');
@@ -50,10 +50,76 @@ export async function loadTemplate(name) {
   return { meta, render: mod.render };
 }
 
+function measureFieldHeight(fieldName, content, textLayout, sizeKey, cssVars) {
+  const constraint = textLayout?.[fieldName];
+  if (!constraint) return 0;
+
+  const text = content[fieldName];
+  if (!text) return 0;
+
+  const sizeOverride = constraint.sizeOverrides?.[sizeKey];
+  let font = sizeOverride?.font || constraint.font;
+  let lineHeight = sizeOverride?.lineHeight || constraint.lineHeight;
+  const maxWidth = sizeOverride?.maxWidth || constraint.maxWidth;
+  const transform = constraint.transform;
+
+  if (!font || !maxWidth || !lineHeight) return 0;
+
+  if (fieldName === 'title' && cssVars['--auto-title-size']) {
+    const fontMatch = font.match(/^(\d+)\s+(\d+)px\s+(.+)$/);
+    if (fontMatch) {
+      const [, weight, baseSizeStr, family] = fontMatch;
+      const baseSize = parseFloat(baseSizeStr);
+      const ratio = lineHeight / baseSize;
+      const autoSize = parseFloat(cssVars['--auto-title-size']);
+      font = `${weight} ${autoSize}px ${family}`;
+      lineHeight = autoSize * ratio;
+    }
+  }
+
+  const result = measureText(text, font, maxWidth, lineHeight, { transform });
+  return result.height;
+}
+
+function computeSpatialVars(content, meta, sizeKey, cssVars) {
+  const sl = meta.spatialLayout;
+  if (!sl) return;
+
+  const dim = SIZES[sizeKey] || SIZES.a4;
+  const overrides = sl.sizeOverrides?.[sizeKey] || {};
+
+  const head = { ...sl.head, ...overrides.head };
+  const tail = { ...sl.tail, ...overrides.tail };
+  const footer = { ...sl.footer, ...overrides.footer };
+  const hero = { ...sl.hero, ...overrides.hero };
+
+  let headHeight = head.fixedHeight || 0;
+  for (const field of (head.measuredFields || [])) {
+    headHeight += measureFieldHeight(field, content, meta.textLayout, sizeKey, cssVars);
+  }
+
+  let tailHeight = tail.fixedHeight || 0;
+  for (const field of (tail.measuredFields || [])) {
+    tailHeight += measureFieldHeight(field, content, meta.textLayout, sizeKey, cssVars);
+  }
+
+  const footerHeight = footer.fixedHeight || 0;
+  const margin = hero.margin || 0;
+
+  const heroTop = headHeight + margin;
+  const heroHeight = Math.max(0, dim.h - headHeight - tailHeight - footerHeight - 2 * margin);
+
+  cssVars['--sl-hero-top'] = `${Math.round(heroTop)}px`;
+  cssVars['--sl-hero-height'] = `${Math.round(heroHeight)}px`;
+}
+
 function computeCSSVars(content, meta, options) {
   const cssVars = {};
   const textLayout = meta.textLayout;
-  if (!textLayout?.title) return cssVars;
+  if (!textLayout?.title) {
+    computeSpatialVars(content, meta, options.size || 'a4', cssVars);
+    return cssVars;
+  }
 
   const sizeKey = options.size || 'a4';
   const titleConstraint = textLayout.title;
@@ -122,6 +188,8 @@ function computeCSSVars(content, meta, options) {
     const padding = dim.w - maxWidth;
     options.overrideWidth = contentWidth + padding;
   }
+
+  computeSpatialVars(content, meta, sizeKey, cssVars);
 
   return cssVars;
 }
